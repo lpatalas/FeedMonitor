@@ -6,11 +6,11 @@
 	[Export(typeof(IShell))]
 	public class ShellViewModel : IShell
 	{
-		public FrameworkElement CurrentView { get; private set; }
+		public object CurrentViewModel { get; private set; }
 
 		public ShellViewModel()
 		{
-			this.CurrentView = new TextBlock { Text = "Empty" };
+			this.CurrentViewModel = new SubscriptionsViewModel();
 		}
 	}
 }
