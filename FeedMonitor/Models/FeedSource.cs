@@ -9,9 +9,9 @@ using Caliburn.Micro;
 
 namespace FeedMonitor.Models
 {
-	public class FeedSource
+	public class FeedSource : IFeedSource
 	{
-		public BindableCollection<FeedItem> AllItems { get; set; }
+		public IEnumerable<FeedItem> AllItems { get; set; }
 
 		public FeedSource(string url)
 		{

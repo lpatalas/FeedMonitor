@@ -7,7 +7,7 @@ using Caliburn.Micro;
 
 namespace FeedMonitor.Models
 {
-	public class FeedAggregator : PropertyChangedBase
+	public class FeedAggregator : PropertyChangedBase, IFeedAggregator
 	{
 		private readonly IList<IFeedSource> sources = new List<IFeedSource>();
 
@@ -19,6 +19,11 @@ namespace FeedMonitor.Models
 					.SelectMany(source => source.AllItems)
 					.OrderBy(item => item.PublishDate);
 			}
+		}
+
+		public IEnumerable<IFeedSource> Sources
+		{
+			get { return sources; }
 		}
 
 		public FeedAggregator()

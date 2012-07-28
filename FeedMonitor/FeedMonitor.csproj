@@ -67,6 +67,9 @@
     <Compile Include="Models\FeedAggregator.cs" />
     <Compile Include="Models\FeedItem.cs" />
     <Compile Include="Models\FeedSource.cs" />
+    <Compile Include="Models\FeedSourceFactory.cs" />
+    <Compile Include="Models\IFeedAggregator.cs" />
+    <Compile Include="Models\IFeedSourceFactory.cs" />
     <Compile Include="Models\IFeedSource.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="ViewModels\ReaderViewModel.cs" />

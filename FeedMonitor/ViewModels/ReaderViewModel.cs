@@ -14,12 +14,23 @@ namespace FeedMonitor.ViewModels
 {
 	public class ReaderViewModel : PropertyChangedBase
 	{
+		private readonly IFeedAggregator aggregator;
+		private readonly IFeedSourceFactory feedSourceFactory;
+
 		public BindableCollection<FeedItem> Results { get; set; }
 
 		public string SourceUrl { get; set; }
 
 		public ReaderViewModel()
+			: this(new FeedAggregator(), new FeedSourceFactory())
 		{
+		}
+
+		public ReaderViewModel(IFeedAggregator aggregator, IFeedSourceFactory feedSourceFactory)
+		{
+			this.aggregator = aggregator ?? new FeedAggregator();
+			this.feedSourceFactory = feedSourceFactory ?? new FeedSourceFactory();
+
 			this.Results = new BindableCollection<FeedItem>();
 			this.SourceUrl = @"http://blogs.msdn.com/b/ericlippert/rss.aspx";
 		}
@@ -48,6 +59,12 @@ namespace FeedMonitor.ViewModels
 
 			Results.IsNotifying = true;
 			Results.Refresh();
+		}
+
+		public void AddFeed(string sourceUrl)
+		{
+			var feedSource = feedSourceFactory.CreateFromUrl(sourceUrl);
+			aggregator.AddSource(feedSource);
 		}
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FakeItEasy;
 using FeedMonitor.Models;
 using FeedMonitor.UnitTests.Fakes;
 using FluentAssertions;
@@ -81,6 +82,29 @@ namespace FeedMonitor.UnitTests.Models
 				var expectedResult = items.OrderBy(item => item.PublishDate).ToList();
 
 				aggregator.AllItems.Should().ContainInOrder(expectedResult);
+			}
+		}
+
+		public class SourcesProperty
+		{
+			[Fact]
+			public void Should_return_all_sources_added_to_aggregator()
+			{
+				// Arrange
+				var sources = new[]
+				{
+					new FakeFeedSource(),
+					new FakeFeedSource()
+				};
+
+				var aggregator = new FeedAggregator();
+
+				// Act
+				foreach (var source in sources)
+					aggregator.AddSource(source);
+
+				// Assert
+				aggregator.Sources.Should().Contain(sources);
 			}
 		}
 	}
