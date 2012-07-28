@@ -9,12 +9,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{88A2FA
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedMonitor.UnitTests", "FeedMonitor.UnitTests\FeedMonitor.UnitTests.csproj", "{AC0B4C29-2622-4BEC-9BB2-54DF1CC78B02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC0B4C29-2622-4BEC-9BB2-54DF1CC78B02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC0B4C29-2622-4BEC-9BB2-54DF1CC78B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC0B4C29-2622-4BEC-9BB2-54DF1CC78B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC0B4C29-2622-4BEC-9BB2-54DF1CC78B02}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B1BD98D6-4F38-4BA9-AB26-46DC070E06C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B1BD98D6-4F38-4BA9-AB26-46DC070E06C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1BD98D6-4F38-4BA9-AB26-46DC070E06C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
