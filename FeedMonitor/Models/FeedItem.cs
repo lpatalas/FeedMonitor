@@ -10,6 +10,8 @@ namespace FeedMonitor.Models
 {
 	public class FeedItem
 	{
+		public DateTime PublishDate { get; set; }
+
 		public string Summary { get; set; }
 
 		public string Title { get; set; }
@@ -18,6 +20,7 @@ namespace FeedMonitor.Models
 		{
 			return new FeedItem
 			{
+				PublishDate = sourceItem.PublishDate.LocalDateTime,
 				Summary = ExtractSummary(sourceItem.Summary.Text),
 				Title = sourceItem.Title.Text
 			};

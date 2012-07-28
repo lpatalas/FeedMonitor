@@ -64,7 +64,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\FeedAggregator.cs" />
     <Compile Include="Models\FeedItem.cs" />
+    <Compile Include="Models\FeedSource.cs" />
+    <Compile Include="Models\IFeedSource.cs" />
     <Compile Include="ShellViewModel.cs" />
     <Compile Include="ViewModels\ReaderViewModel.cs" />
     <Compile Include="Views\ReaderView.xaml.cs">
