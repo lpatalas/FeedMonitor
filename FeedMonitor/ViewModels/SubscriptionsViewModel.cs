@@ -9,7 +9,7 @@ using FeedMonitor.Services;
 
 namespace FeedMonitor.ViewModels
 {
-	public class SubscriptionsViewModel : PropertyChangedBase
+	public class SubscriptionsViewModel : PropertyChangedBase, ISubscriptionsViewModel
 	{
 		private readonly IMessageBoxService messageBoxService;
 		private readonly BindableCollection<Subscription> subscriptions = new BindableCollection<Subscription>();
@@ -17,6 +17,11 @@ namespace FeedMonitor.ViewModels
 		public IEnumerable<Subscription> Subscriptions
 		{
 			get { return subscriptions; }
+		}
+
+		public SubscriptionsViewModel()
+			: this(new MessageBoxService())
+		{
 		}
 
 		public SubscriptionsViewModel(IMessageBoxService messageBoxService)
