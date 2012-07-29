@@ -37,6 +37,8 @@ namespace FeedMonitor.UnitTests.Models
 				// Act
 
 				// Assert
+
+				// TODO: possible race condition because subscripton loads feed asynchronously
 				subscription.Title.Should().Be(FakeFeedProvider.FeedTitle);
 			}
 		}
