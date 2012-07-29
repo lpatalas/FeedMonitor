@@ -21,5 +21,10 @@ namespace FeedMonitor.ViewModels
 		{
 			subscriptions.Add(new Subscription(sourceUrl));
 		}
+
+		public void RemoveSubscription(Subscription subscription)
+		{
+			subscriptions.Remove(subscription);
+		}
 	}
 }

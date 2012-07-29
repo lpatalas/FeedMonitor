@@ -39,5 +39,23 @@ namespace FeedMonitor.UnitTests.ViewModels
 					.Should().Contain(item => item.Url.Equals(sourceUrl, StringComparison.Ordinal));
 			}
 		}
+
+		public class RemoveSubscriptionMethod : TestBase
+		{
+			[Fact]
+			public void Should_remove_specified_subscription_from_list()
+			{
+				// Arrange
+				viewModel.AddSubscription(testUrl);
+				var subscription = viewModel.Subscriptions
+					.First(item => item.Url.Equals(testUrl, StringComparison.Ordinal));
+
+				// Act
+				viewModel.RemoveSubscription(subscription);
+
+				// Assert
+				viewModel.Subscriptions.Should().NotContain(subscription);
+			}
+		}
 	}
 }

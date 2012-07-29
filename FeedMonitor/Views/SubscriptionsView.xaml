@@ -27,7 +27,17 @@
 			<ItemsControl.ItemTemplate>
 				<DataTemplate DataType="{x:Type models:Subscription}">
 					<Border>
-						<TextBlock Text="{Binding Url}" />
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Text="{Binding Url}" />
+							<Button cal:Message.Attach="[Event Click] = [Action RemoveSubscription($dataContext)]"
+									Grid.Column="1">
+								X
+							</Button>
+						</Grid>
 					</Border>
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
