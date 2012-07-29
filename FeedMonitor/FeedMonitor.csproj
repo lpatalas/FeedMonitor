@@ -65,9 +65,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\FeedItem.cs" />
+    <Compile Include="Models\ISubscriptionFactory.cs" />
     <Compile Include="Models\Subscription.cs" />
+    <Compile Include="Models\SubscriptionFactory.cs" />
+    <Compile Include="Services\FeedProvider.cs" />
+    <Compile Include="Services\IFeedProvider.cs" />
     <Compile Include="Services\IMessageBoxService.cs" />
     <Compile Include="Services\MessageBoxService.cs" />
+    <Compile Include="Services\NullFeedProvider.cs" />
     <Compile Include="ViewModels\DesignerSubscriptionsViewModel.cs" />
     <Compile Include="ViewModels\ISubscriptionsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />

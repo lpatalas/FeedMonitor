@@ -11,7 +11,7 @@
 
 		public ShellViewModel()
 		{
-			this.CurrentViewModel = new SubscriptionsViewModel(new MessageBoxService());
+			this.CurrentViewModel = new SubscriptionsViewModel();
 		}
 	}
 }

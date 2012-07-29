@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FakeItEasy;
+using FeedMonitor.Models;
 using FeedMonitor.Services;
+using FeedMonitor.UnitTests.Fakes;
 using FeedMonitor.ViewModels;
 using FluentAssertions;
 using Xunit;
@@ -17,13 +19,17 @@ namespace FeedMonitor.UnitTests.ViewModels
 
 		public abstract class TestBase
 		{
+			protected IFeedProvider feedProvider = new FakeFeedProvider();
 			protected IMessageBoxService messageBoxService;
+			protected ISubscriptionFactory subscriptionFactory;
 			protected SubscriptionsViewModel viewModel;
 
 			public TestBase()
 			{
+				feedProvider = new FakeFeedProvider();
 				messageBoxService = A.Fake<IMessageBoxService>();
-				viewModel = new SubscriptionsViewModel(messageBoxService);
+				subscriptionFactory = new FakeSubscriptionFactory(feedProvider);
+				viewModel = new SubscriptionsViewModel(messageBoxService, subscriptionFactory);
 			}
 		}
 

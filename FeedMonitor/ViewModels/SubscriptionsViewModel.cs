@@ -13,6 +13,7 @@ namespace FeedMonitor.ViewModels
 	{
 		private readonly IMessageBoxService messageBoxService;
 		private readonly BindableCollection<Subscription> subscriptions = new BindableCollection<Subscription>();
+		private readonly ISubscriptionFactory subscriptionFactory;
 
 		public IEnumerable<Subscription> Subscriptions
 		{
@@ -20,20 +21,26 @@ namespace FeedMonitor.ViewModels
 		}
 
 		public SubscriptionsViewModel()
-			: this(new MessageBoxService())
+			: this(new MessageBoxService(), new SubscriptionFactory())
 		{
 		}
 
-		public SubscriptionsViewModel(IMessageBoxService messageBoxService)
+		public SubscriptionsViewModel(
+			IMessageBoxService messageBoxService,
+			ISubscriptionFactory subscriptionFactory)
 		{
 			this.messageBoxService = messageBoxService;
+			this.subscriptionFactory = subscriptionFactory;
 		}
 
 		public void AddSubscription(string sourceUrl)
 		{
 			var alreadyExists = subscriptions.Any(item => item.Url.Equals(sourceUrl, StringComparison.Ordinal));
 			if (!alreadyExists)
-				subscriptions.Add(new Subscription(sourceUrl));
+			{
+				var newSubscription = subscriptionFactory.Create(sourceUrl);
+				subscriptions.Add(newSubscription);
+			}
 		}
 
 		public void RemoveSubscription(Subscription subscription)
