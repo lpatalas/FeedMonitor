@@ -64,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\PlaceholderTextBox.cs" />
     <Compile Include="Models\FeedItem.cs" />
     <Compile Include="Models\ISubscriptionFactory.cs" />
     <Compile Include="Models\Subscription.cs" />
