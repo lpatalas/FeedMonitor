@@ -2,6 +2,7 @@
 	using System.ComponentModel.Composition;
 	using System.Windows;
 	using System.Windows.Controls;
+	using FeedMonitor.Services;
 
 	[Export(typeof(IShell))]
 	public class ShellViewModel : IShell
@@ -10,7 +11,7 @@
 
 		public ShellViewModel()
 		{
-			this.CurrentViewModel = new SubscriptionsViewModel();
+			this.CurrentViewModel = new SubscriptionsViewModel(new MessageBoxService());
 		}
 	}
 }
