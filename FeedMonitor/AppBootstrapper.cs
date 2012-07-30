@@ -4,6 +4,7 @@ using System.Linq;
 using Caliburn.Micro;
 using FeedMonitor.ViewModels;
 using Ninject;
+using Ninject.Extensions.Conventions;
 
 namespace FeedMonitor
 {
