@@ -2,22 +2,22 @@
 using System.Diagnostics.Contracts;
 using System.Windows;
 using System.Windows.Controls;
+using Caliburn.Micro;
 using FeedMonitor.Services;
 
 namespace FeedMonitor.ViewModels
 {
-	public class ShellViewModel
+	public class ShellViewModel : Conductor<object>.Collection.OneActive
 	{
 		private readonly ISubscriptionsViewModel subscriptionsViewModel;
-
-		public object CurrentViewModel { get; private set; }
 
 		public ShellViewModel(ISubscriptionsViewModel subscriptionsViewModel)
 		{
 			Contract.Requires(subscriptionsViewModel != null);
 
 			this.subscriptionsViewModel = subscriptionsViewModel;
-			this.CurrentViewModel = subscriptionsViewModel;
+
+			ActivateItem(this.subscriptionsViewModel);
 		}
 	}
 }

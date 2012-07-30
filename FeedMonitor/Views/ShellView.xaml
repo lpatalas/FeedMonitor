@@ -3,5 +3,5 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		Background="Black"
 		MaxWidth="500">
-	<ContentControl x:Name="CurrentViewModel" />
+	<ContentControl x:Name="ActiveItem" />
 </Window>
