@@ -80,7 +80,7 @@
     <Compile Include="Services\IMessageBoxService.cs" />
     <Compile Include="Services\MessageBoxService.cs" />
     <Compile Include="Services\NullFeedProvider.cs" />
-    <Compile Include="ViewModels\DesignerSubscriptionsViewModel.cs" />
+    <Compile Include="ViewModels\Designer\DesignerSubscriptionsViewModel.cs" />
     <Compile Include="ViewModels\ISubscriptionsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">

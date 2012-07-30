@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using FeedMonitor.Models;
 using FeedMonitor.Services;
 
-namespace FeedMonitor.ViewModels
+namespace FeedMonitor.ViewModels.Designer
 {
 	public class DesignerSubscriptionsViewModel : ISubscriptionsViewModel
 	{

@@ -4,15 +4,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:cal="http://www.caliburnproject.org"
 			 xmlns:controls="clr-namespace:FeedMonitor.Controls"
+			 xmlns:designerViewModels="clr-namespace:FeedMonitor.ViewModels.Designer"
 			 xmlns:models="clr-namespace:FeedMonitor.Models"
              xmlns:viewModels="clr-namespace:FeedMonitor.ViewModels"
 			 x:Class="FeedMonitor.Views.SubscriptionsView"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+			 d:DataContext="{d:DesignInstance designerViewModels:DesignerSubscriptionsViewModel, IsDesignTimeCreatable=True}"
              d:DesignHeight="300"
 			 d:DesignWidth="300">
-	<UserControl.DataContext>
-		<viewModels:DesignerSubscriptionsViewModel/>
-	</UserControl.DataContext>
 	<UserControl.Resources>
 		<Style TargetType="{x:Type controls:PlaceholderTextBox}">
 			<Setter Property="Foreground" Value="White" />
