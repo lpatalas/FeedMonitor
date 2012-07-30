@@ -72,9 +72,9 @@
     </ApplicationDefinition>
     <Compile Include="Controls\PlaceholderTextBox.cs" />
     <Compile Include="Models\FeedItem.cs" />
-    <Compile Include="Models\ISubscriptionFactory.cs" />
+    <Compile Include="Services\ISubscriptionFactory.cs" />
     <Compile Include="Models\Subscription.cs" />
-    <Compile Include="Models\SubscriptionFactory.cs" />
+    <Compile Include="Services\SubscriptionFactory.cs" />
     <Compile Include="Services\FeedProvider.cs" />
     <Compile Include="Services\IFeedProvider.cs" />
     <Compile Include="Services\IMessageBoxService.cs" />

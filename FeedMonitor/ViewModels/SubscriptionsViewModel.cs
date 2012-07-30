@@ -20,11 +20,6 @@ namespace FeedMonitor.ViewModels
 			get { return subscriptions; }
 		}
 
-		public SubscriptionsViewModel()
-			: this(new MessageBoxService(), new SubscriptionFactory())
-		{
-		}
-
 		public SubscriptionsViewModel(
 			IMessageBoxService messageBoxService,
 			ISubscriptionFactory subscriptionFactory)

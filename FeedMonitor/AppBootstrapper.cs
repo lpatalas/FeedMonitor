@@ -22,6 +22,14 @@ namespace FeedMonitor
 			kernel.Bind(x => x
 				.FromThisAssembly()
 				.SelectAllClasses()
+				.InNamespaces("FeedMonitor.Services")
+				.Where(type => type.GetInterface("I" + type.Name) != null)
+				.BindAllInterfaces()
+				.Configure(cfg => cfg.InSingletonScope()));
+
+			kernel.Bind(x => x
+				.FromThisAssembly()
+				.SelectAllClasses()
 				.InNamespaces("FeedMonitor.ViewModels")
 				.NotInNamespaces("FeedMonitor.ViewModels.Designer")
 				.BindAllInterfaces()
