@@ -1,11 +1,11 @@
-﻿namespace FeedMonitor.ViewModels {
-	using System.ComponentModel.Composition;
-	using System.Windows;
-	using System.Windows.Controls;
-	using FeedMonitor.Services;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
+using FeedMonitor.Services;
 
-	[Export(typeof(IShell))]
-	public class ShellViewModel : IShell
+namespace FeedMonitor.ViewModels
+{
+	public class ShellViewModel
 	{
 		public object CurrentViewModel { get; private set; }
 
