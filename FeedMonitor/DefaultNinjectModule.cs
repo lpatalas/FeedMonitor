@@ -14,24 +14,43 @@ namespace FeedMonitor
 	{
 		public override void Load()
 		{
-			this.Bind<IWindowManager>().To<WindowManager>();
-			this.Bind<IEventAggregator>().To<EventAggregator>();
-			
+			BindExternalServices();
+			BindServices();
+			BindViewModels();
+		}
+
+		private void BindExternalServices()
+		{
+			Bind<IWindowManager>().To<WindowManager>();
+			Bind<IEventAggregator>().To<EventAggregator>();
+		}
+
+		private void BindServices()
+		{
 			this.Bind(x => x
 				.FromThisAssembly()
 				.SelectAllClasses()
 				.InNamespaces("FeedMonitor.Services")
-				.Where(type => type.GetInterface("I" + type.Name) != null)
+				.Where(TypeIsDefaultInterfaceImplementation)
 				.BindAllInterfaces()
 				.Configure(cfg => cfg.InSingletonScope()));
+		}
 
+		private void BindViewModels()
+		{
 			this.Bind(x => x
 				.FromThisAssembly()
 				.SelectAllClasses()
 				.InNamespaces("FeedMonitor.ViewModels")
-				.NotInNamespaces("FeedMonitor.ViewModels.Designer")
+				.Where(TypeIsDefaultInterfaceImplementation)
 				.BindAllInterfaces()
 				.Configure(cfg => cfg.InTransientScope()));
+		}
+
+		private static bool TypeIsDefaultInterfaceImplementation(Type type)
+		{
+			var interfaceName = "I" + type.Name;
+			return type.GetInterface(interfaceName) != null;
 		}
 	}
 }
