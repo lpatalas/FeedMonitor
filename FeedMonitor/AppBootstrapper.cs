@@ -14,26 +14,7 @@ namespace FeedMonitor
 
 		protected override void Configure()
 		{
-			kernel = new StandardKernel();
-
-			kernel.Bind<IWindowManager>().To<WindowManager>();
-			kernel.Bind<IEventAggregator>().To<EventAggregator>();
-
-			kernel.Bind(x => x
-				.FromThisAssembly()
-				.SelectAllClasses()
-				.InNamespaces("FeedMonitor.Services")
-				.Where(type => type.GetInterface("I" + type.Name) != null)
-				.BindAllInterfaces()
-				.Configure(cfg => cfg.InSingletonScope()));
-
-			kernel.Bind(x => x
-				.FromThisAssembly()
-				.SelectAllClasses()
-				.InNamespaces("FeedMonitor.ViewModels")
-				.NotInNamespaces("FeedMonitor.ViewModels.Designer")
-				.BindAllInterfaces()
-				.Configure(cfg => cfg.InTransientScope()));
+			kernel = new StandardKernel(new DefaultNinjectModule());
 		}
 
 		protected override object GetInstance(Type serviceType, string key)

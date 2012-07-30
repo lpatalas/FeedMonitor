@@ -71,6 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\PlaceholderTextBox.cs" />
+    <Compile Include="DefaultNinjectModule.cs" />
     <Compile Include="Models\FeedItem.cs" />
     <Compile Include="Services\ISubscriptionFactory.cs" />
     <Compile Include="Models\Subscription.cs" />
