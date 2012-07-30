@@ -1,56 +1,37 @@
-﻿namespace FeedMonitor
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Caliburn.Micro;
+using FeedMonitor.ViewModels;
+using Ninject;
+
+namespace FeedMonitor
 {
-	using System;
-	using System.Collections.Generic;
-	using System.ComponentModel.Composition;
-	using System.ComponentModel.Composition.Hosting;
-	using System.ComponentModel.Composition.Primitives;
-	using System.Linq;
-	using Caliburn.Micro;
-
-	public class AppBootstrapper : Bootstrapper<IShell>
+	public class AppBootstrapper : Bootstrapper<ShellViewModel>
 	{
-		CompositionContainer container;
+		private IKernel kernel;
 
-		/// <summary>
-		/// By default, we are configured to use MEF
-		/// </summary>
-		protected override void Configure() {
-		    var catalog = new AggregateCatalog(
-		        AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()
-		        );
+		protected override void Configure()
+		{
+			kernel = new StandardKernel();
 
-			container = new CompositionContainer(catalog);
-
-			var batch = new CompositionBatch();
-
-			batch.AddExportedValue<IWindowManager>(new WindowManager());
-			batch.AddExportedValue<IEventAggregator>(new EventAggregator());
-			batch.AddExportedValue(container);
-		    batch.AddExportedValue(catalog);
-
-			container.Compose(batch);
+			kernel.Bind<IWindowManager>().To<WindowManager>();
+			kernel.Bind<IEventAggregator>().To<EventAggregator>();
 		}
 
 		protected override object GetInstance(Type serviceType, string key)
 		{
-			string contract = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(serviceType) : key;
-			var exports = container.GetExportedValues<object>(contract);
-
-			if (exports.Count() > 0)
-				return exports.First();
-
-			throw new Exception(string.Format("Could not locate any instances of contract {0}.", contract));
+			return kernel.Get(serviceType);
 		}
 
 		protected override IEnumerable<object> GetAllInstances(Type serviceType)
 		{
-			return container.GetExportedValues<object>(AttributedModelServices.GetContractName(serviceType));
+			return kernel.GetAll(serviceType);
 		}
 
 		protected override void BuildUp(object instance)
 		{
-			container.SatisfyImportsOnce(instance);
+			kernel.Inject(instance);
 		}
 	}
 }

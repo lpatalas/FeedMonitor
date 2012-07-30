@@ -1,3 +1,6 @@
-﻿namespace FeedMonitor {
-    public interface IShell {}
+﻿namespace FeedMonitor
+{
+	public interface IShell
+	{
+	}
 }
