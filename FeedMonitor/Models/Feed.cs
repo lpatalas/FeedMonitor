@@ -19,6 +19,12 @@ namespace FeedMonitor.Models
 			get { return items; }
 		}
 
+		public string Title
+		{
+			get;
+			private set;
+		}
+
 		public Feed(IFeedProvider feedProvider, string url)
 		{
 			Contract.Requires(feedProvider != null);
@@ -26,6 +32,12 @@ namespace FeedMonitor.Models
 
 			this.feedProvider = feedProvider;
 			this.url = url;
+		}
+
+		public void Update()
+		{
+			var syndicationFeed = feedProvider.GetFeed(url);
+			Title = syndicationFeed.Title.Text;
 		}
 	}
 }

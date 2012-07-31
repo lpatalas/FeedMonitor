@@ -73,6 +73,7 @@
     <Compile Include="Fakes\FakeFeedProvider.cs" />
     <Compile Include="Fakes\FakeSubscriptionFactory.cs" />
     <Compile Include="Fakes\FakeWindowManager.cs" />
+    <Compile Include="Models\FeedClass.cs" />
     <Compile Include="Models\SubscriptionClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MessageBoxServiceClass.cs" />
