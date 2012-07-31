@@ -32,7 +32,7 @@ namespace FeedMonitor
 				.SelectAllClasses()
 				.InNamespaces("FeedMonitor.Services")
 				.Where(TypeIsDefaultInterfaceImplementation)
-				.BindAllInterfaces()
+				.BindDefaultInterface()
 				.Configure(cfg => cfg.InSingletonScope()));
 		}
 
@@ -43,7 +43,7 @@ namespace FeedMonitor
 				.SelectAllClasses()
 				.InNamespaces("FeedMonitor.ViewModels")
 				.Where(TypeIsDefaultInterfaceImplementation)
-				.BindAllInterfaces()
+				.BindDefaultInterface()
 				.Configure(cfg => cfg.InTransientScope()));
 		}
 
