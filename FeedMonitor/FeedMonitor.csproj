@@ -84,6 +84,7 @@
     <Compile Include="ViewModels\Designer\DesignerMessageBoxViewModel.cs" />
     <Compile Include="ViewModels\Designer\DesignerSubscriptionsViewModel.cs" />
     <Compile Include="ViewModels\ISubscriptionsViewModel.cs" />
+    <Compile Include="ViewModels\MessageBoxButtonMapping.cs" />
     <Compile Include="ViewModels\MessageBoxViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">

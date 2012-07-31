@@ -8,6 +8,6 @@ namespace FeedMonitor.Services
 {
 	public interface IMessageBoxService
 	{
-		bool ShowYesNoDialog(string title, string message);
+		bool ShowYesNoDialog(string message, string title);
 	}
 }

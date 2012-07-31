@@ -40,9 +40,7 @@ namespace FeedMonitor.ViewModels
 
 		public void RemoveSubscription(Subscription subscription)
 		{
-			var userConfirmed = messageBoxService.ShowYesNoDialog(
-				"Delete subscription?",
-				"Do you really want to delete specified subscription?");
+			var userConfirmed = messageBoxService.ShowYesNoDialog("Do you really want to delete specified subscription?", "Delete subscription?");
 
 			if (userConfirmed)
 				subscriptions.Remove(subscription);
