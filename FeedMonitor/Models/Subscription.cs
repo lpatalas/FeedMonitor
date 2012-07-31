@@ -14,8 +14,14 @@ namespace FeedMonitor.Models
 	{
 		private const string defaultTitle = "Untitled";
 
+		private readonly Feed feed;
 		private readonly IFeedProvider feedProvider;
 		private readonly string url;
+
+		public Feed Feed
+		{
+			get { return feed; }
+		}
 
 		public string Title
 		{
@@ -36,15 +42,16 @@ namespace FeedMonitor.Models
 		public Subscription(string title, string url, IFeedProvider feedProvider)
 		{
 			Contract.Requires(feedProvider != null);
-			Contract.Requires(url != null);
+			Contract.Requires(!string.IsNullOrEmpty(url));
 
-			this.url = url;
+			this.feed = new Feed(feedProvider, url);
 			this.feedProvider = feedProvider;
+			this.Title = title;
+			this.url = url;
 		}
 
-		public async Task Refresh()
+		public async Task RefreshFeed()
 		{
-			SetLoadingTitle();
 			var feed = await LoadFeed();
 			Title = feed.Title.Text;
 		}
@@ -52,14 +59,6 @@ namespace FeedMonitor.Models
 		private Task<SyndicationFeed> LoadFeed()
 		{
 			return Task.Factory.StartNew(() => feedProvider.GetFeed(Url));
-		}
-
-		private void SetLoadingTitle()
-		{
-			if (string.IsNullOrEmpty(Title))
-				Title = "Loading...";
-			else
-				Title = string.Format("{0} (refreshing ...)", Title);
 		}
 	}
 }

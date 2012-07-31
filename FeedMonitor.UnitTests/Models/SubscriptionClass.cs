@@ -27,7 +27,7 @@ namespace FeedMonitor.UnitTests.Models
 			}
 		}
 
-		public class RefreshMethod : TestBase
+		public class RefreshFeedMethod : TestBase
 		{
 			[Fact]
 			public void Should_use_IFeedProvider_to_get_feed_data_from_specified_url()
@@ -42,7 +42,7 @@ namespace FeedMonitor.UnitTests.Models
 				};
 
 				// Act
-				var task = subscription.Refresh();
+				var task = subscription.RefreshFeed();
 				task.Wait();
 
 				// Assert
@@ -58,7 +58,7 @@ namespace FeedMonitor.UnitTests.Models
 				// Arrange
 
 				// Act
-				var task = subscription.Refresh();
+				var task = subscription.RefreshFeed();
 				task.Wait();
 
 				// Assert
