@@ -15,9 +15,18 @@ namespace FeedMonitor.Models
 		private const string defaultTitle = "Untitled";
 
 		private readonly IFeedProvider feedProvider;
+		private readonly string url;
 
-		public string Title { get; private set; }
-		public string Url { get; private set; }
+		public string Title
+		{
+			get;
+			private set;
+		}
+
+		public string Url
+		{
+			get { return url; }
+		}
 
 		public Subscription(string url, IFeedProvider feedProvider)
 			: this(defaultTitle, url, feedProvider)
@@ -29,13 +38,11 @@ namespace FeedMonitor.Models
 			Contract.Requires(feedProvider != null);
 			Contract.Requires(url != null);
 
-			this.Url = url;
+			this.url = url;
 			this.feedProvider = feedProvider;
-
-			RefreshFeed();
 		}
 
-		private async void RefreshFeed()
+		public async Task Refresh()
 		{
 			SetLoadingTitle();
 			var feed = await LoadFeed();
