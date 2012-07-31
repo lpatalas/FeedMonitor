@@ -15,7 +15,19 @@ namespace FeedMonitor.UnitTests.Fakes
 		public const string FeedTitle = "Test Feed";
 		public const string FeedUrl = "http://www.test.com/";
 
-		public SyndicationFeed GetFeed(string url)
+		public Func<string, SyndicationFeed> GetFeed;
+
+		public FakeFeedProvider()
+		{
+			GetFeed = GetFeedDefaultImpl;
+		}
+
+		SyndicationFeed IFeedProvider.GetFeed(string url)
+		{
+			return GetFeed(url);
+		}
+
+		public SyndicationFeed GetFeedDefaultImpl(string url)
 		{
 			using (var reader = XmlReader.Create(new StringReader(feedSource)))
 			{

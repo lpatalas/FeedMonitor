@@ -16,7 +16,7 @@ namespace FeedMonitor.UnitTests.Models
 	{
 		public abstract class TestBase
 		{
-			protected readonly IFeedProvider feedProvider;
+			protected readonly FakeFeedProvider feedProvider;
 			protected readonly Subscription subscription;
 			protected const string subscriptionUrl = "http://www.subscription.com/rss";
 
@@ -24,6 +24,29 @@ namespace FeedMonitor.UnitTests.Models
 			{
 				feedProvider = new FakeFeedProvider();
 				subscription = new Subscription(subscriptionUrl, feedProvider);
+			}
+		}
+
+		public class RefreshMethod : TestBase
+		{
+			[Fact]
+			public void Should_use_IFeedProvider_to_get_feed_data_from_specified_url()
+			{
+				// Arrange
+				string requestedUrl = null;
+
+				feedProvider.GetFeed = (url) =>
+				{
+					requestedUrl = url;
+					return feedProvider.GetFeedDefaultImpl(url);
+				};
+
+				// Act
+				var task = subscription.Refresh();
+				task.Wait();
+
+				// Assert
+				requestedUrl.Should().Be(subscription.Url);
 			}
 		}
 
