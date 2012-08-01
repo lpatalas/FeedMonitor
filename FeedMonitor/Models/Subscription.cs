@@ -49,16 +49,5 @@ namespace FeedMonitor.Models
 			this.Title = title;
 			this.url = url;
 		}
-
-		public async Task RefreshFeed()
-		{
-			var feed = await LoadFeed();
-			Title = feed.Title.Text;
-		}
-
-		private Task<SyndicationFeed> LoadFeed()
-		{
-			return Task.Factory.StartNew(() => feedDownloader.GetFeed(Url));
-		}
 	}
 }

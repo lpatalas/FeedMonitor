@@ -26,6 +26,11 @@ namespace FeedMonitor.Models
 			private set;
 		}
 
+		public string Url
+		{
+			get { return url; }
+		}
+
 		public Feed(IFeedDownloader feedDownloader, string url)
 		{
 			Contract.Requires(feedDownloader != null);

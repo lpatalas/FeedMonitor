@@ -26,44 +26,5 @@ namespace FeedMonitor.UnitTests.Models
 				subscription = new Subscription(subscriptionUrl, feedDownloader);
 			}
 		}
-
-		public class RefreshFeedMethod : TestBase
-		{
-			[Fact]
-			public void Should_use_IFeedDownloader_to_get_feed_data_from_specified_url()
-			{
-				// Arrange
-				string requestedUrl = null;
-
-				feedDownloader.GetFeed = (url) =>
-				{
-					requestedUrl = url;
-					return feedDownloader.GetFeedDefaultImpl(url);
-				};
-
-				// Act
-				var task = subscription.RefreshFeed();
-				task.Wait();
-
-				// Assert
-				requestedUrl.Should().Be(subscription.Url);
-			}
-		}
-
-		public class TitleProperty : TestBase
-		{
-			[Fact]
-			public void Should_contain_title_specified_in_feed()
-			{
-				// Arrange
-
-				// Act
-				var task = subscription.RefreshFeed();
-				task.Wait();
-
-				// Assert
-				subscription.Title.Should().Be(feedDownloader.FeedTitle);
-			}
-		}
 	}
 }
