@@ -71,7 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fakes\FakeFeedDownloader.cs" />
-    <Compile Include="Fakes\FakeSubscriptionFactory.cs" />
+    <Compile Include="Fakes\FakeFeedFactory.cs" />
     <Compile Include="Fakes\FakeWindowManager.cs" />
     <Compile Include="Models\FeedClass.cs" />
     <Compile Include="Models\FeedItemClass.cs" />
