@@ -8,7 +8,7 @@ using FeedMonitor.Services;
 
 namespace FeedMonitor.Models
 {
-	public class Subscriptions
+	public class Subscriptions : ISubscriptions
 	{
 		private readonly IFeedFactory feedFactory;
 		private readonly IList<Feed> feeds = new List<Feed>();

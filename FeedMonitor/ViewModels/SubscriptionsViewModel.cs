@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,26 +15,35 @@ namespace FeedMonitor.ViewModels
 		private readonly IFeedFactory feedFactory;
 		private readonly BindableCollection<Feed> feeds = new BindableCollection<Feed>();
 		private readonly IMessageBoxService messageBoxService;
+		private readonly ISubscriptions subscriptions;
 
 		public IEnumerable<Feed> Feeds
 		{
-			get { return feeds; }
+			get { return subscriptions.Feeds; }
 		}
 
-		public SubscriptionsViewModel(IFeedFactory feedFactory, IMessageBoxService messageBoxService)
+		public SubscriptionsViewModel(
+			IFeedFactory feedFactory,
+			IMessageBoxService messageBoxService,
+			ISubscriptions subscriptions)
 		{
+			Contract.Requires(feedFactory != null);
+			Contract.Requires(messageBoxService != null);
+			Contract.Requires(subscriptions != null);
+
 			this.feedFactory = feedFactory;
 			this.messageBoxService = messageBoxService;
+			this.subscriptions = subscriptions;
 		}
 
 		public void Subscribe(string sourceUrl)
 		{
-			var alreadyExists = feeds.Any(item => item.Url.Equals(sourceUrl, StringComparison.Ordinal));
+			if (string.IsNullOrEmpty(sourceUrl))
+				return;
+
+			var alreadyExists = subscriptions.Feeds.Any(item => item.Url.Equals(sourceUrl, StringComparison.Ordinal));
 			if (!alreadyExists)
-			{
-				var newSubscription = feedFactory.Create(sourceUrl);
-				feeds.Add(newSubscription);
-			}
+				subscriptions.Add(sourceUrl);
 		}
 
 		public void Unsubscribe(Feed feed)
@@ -41,7 +51,7 @@ namespace FeedMonitor.ViewModels
 			var userConfirmed = messageBoxService.ShowYesNoDialog("Do you really want to unsubscribe specified feed?", "Unsubscribe feed?");
 
 			if (userConfirmed)
-				feeds.Remove(feed);
+				subscriptions.Remove(feed);
 		}
 	}
 }

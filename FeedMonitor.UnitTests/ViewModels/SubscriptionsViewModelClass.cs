@@ -19,17 +19,19 @@ namespace FeedMonitor.UnitTests.ViewModels
 
 		public abstract class TestBase
 		{
-			protected IFeedDownloader feedDownloader;
-			protected IFeedFactory feedFactory;
-			protected IMessageBoxService messageBoxService;
-			protected SubscriptionsViewModel viewModel;
+			protected readonly IFeedDownloader feedDownloader;
+			protected readonly IFeedFactory feedFactory;
+			protected readonly IMessageBoxService messageBoxService;
+			protected readonly ISubscriptions subscriptions;
+			protected readonly SubscriptionsViewModel viewModel;
 
 			public TestBase()
 			{
 				feedDownloader = new FakeFeedDownloader();
 				messageBoxService = A.Fake<IMessageBoxService>();
 				feedFactory = new FakeFeedFactory(feedDownloader);
-				viewModel = new SubscriptionsViewModel(feedFactory, messageBoxService);
+				subscriptions = new Subscriptions(feedFactory);
+				viewModel = new SubscriptionsViewModel(feedFactory, messageBoxService, subscriptions);
 			}
 		}
 
@@ -41,10 +43,28 @@ namespace FeedMonitor.UnitTests.ViewModels
 			}
 		}
 
+		public class FeedsProperty : TestBase
+		{
+			[Fact]
+			public void Should_return_list_of_subscribed_feeds()
+			{
+				// Arrange
+				var firstUrl = @"http://blogs.msdn.com/b/ericlippert/rss.aspx";
+				var secondUrl = @"http://feeds.feedburner.com/ScottHanselman";
+
+				// Act
+				subscriptions.Add(firstUrl);
+				subscriptions.Add(secondUrl);
+
+				// Assert
+				viewModel.Feeds.Should().Contain(subscriptions.Feeds);
+			}
+		}
+
 		public class SubscribeMethod : TestBase
 		{
 			[Fact]
-			public void Should_add_URL_to_list_of_feeds()
+			public void Should_add_URL_to_subscriptions()
 			{
 				// Arrange
 				var sourceUrl = testUrl;
@@ -53,12 +73,26 @@ namespace FeedMonitor.UnitTests.ViewModels
 				viewModel.Subscribe(sourceUrl);
 
 				// Assert
-				viewModel.Feeds.Should().Contain(
-					item => item.Url.Equals(sourceUrl, StringComparison.Ordinal));
+				subscriptions.Feeds
+					.Should().HaveCount(1)
+					.And.Contain(feed => feed.Url.Equals(sourceUrl, StringComparison.Ordinal));
 			}
 
 			[Fact]
-			public void Should_do_nothing_if_specified_URL_is_already_subscribed_to()
+			public void Should_do_nothing_if_URL_is_empty()
+			{
+				// Arrange
+
+				// Act
+				viewModel.Subscribe(null);
+				viewModel.Subscribe(string.Empty);
+
+				// Assert
+				subscriptions.Feeds.Should().BeEmpty();
+			}
+
+			[Fact]
+			public void Should_not_try_to_subscribe_to_the_same_URL_twice()
 			{
 				// Arrange
 				var sourceUrl = testUrl;
@@ -68,7 +102,7 @@ namespace FeedMonitor.UnitTests.ViewModels
 				viewModel.Subscribe(sourceUrl);
 
 				// Assert
-				viewModel.Feeds.Should().HaveCount(1);
+				subscriptions.Feeds.Should().HaveCount(1);
 			}
 		}
 
@@ -101,7 +135,7 @@ namespace FeedMonitor.UnitTests.ViewModels
 				viewModel.Unsubscribe(feed);
 
 				// Assert
-				viewModel.Feeds.Should().Contain(feed);
+				subscriptions.Feeds.Should().Contain(feed);
 			}
 
 			[Fact]
@@ -117,7 +151,7 @@ namespace FeedMonitor.UnitTests.ViewModels
 				viewModel.Unsubscribe(feed);
 
 				// Assert
-				viewModel.Feeds.Should().NotContain(feed);
+				subscriptions.Feeds.Should().NotContain(feed);
 			}
 		}
 	}
