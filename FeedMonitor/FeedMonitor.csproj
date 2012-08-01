@@ -78,10 +78,10 @@
     <Compile Include="Services\IFeedDownloader.cs" />
     <Compile Include="Services\ISubscriptionFactory.cs" />
     <Compile Include="Models\Subscription.cs" />
+    <Compile Include="Services\NullFeedDownloader.cs" />
     <Compile Include="Services\SubscriptionFactory.cs" />
     <Compile Include="Services\IMessageBoxService.cs" />
     <Compile Include="Services\MessageBoxService.cs" />
-    <Compile Include="Services\NullFeedProvider.cs" />
     <Compile Include="ViewModels\Designer\DesignerMessageBoxViewModel.cs" />
     <Compile Include="ViewModels\Designer\DesignerSubscriptionsViewModel.cs" />
     <Compile Include="ViewModels\ISubscriptionsViewModel.cs" />
