@@ -31,12 +31,14 @@ namespace FeedMonitor.UnitTests.Models
 			public void Should_fill_Items_collection_with_all_items_downloaded_from_feed()
 			{
 				// Arrange
+				feedDownloader.FeedItems.Add(new FeedItem("1", "First"));
+				feedDownloader.FeedItems.Add(new FeedItem("2", "Second"));
 
 				// Act
 				feed.Update();
 
 				// Assert
-				//feed.Items.Should().Contain(
+				feed.Items.Should().Contain(feedDownloader.FeedItems);
 			}
 
 			[Fact]

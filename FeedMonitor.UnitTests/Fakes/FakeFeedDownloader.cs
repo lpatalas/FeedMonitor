@@ -59,7 +59,7 @@ namespace FeedMonitor.UnitTests.Fakes
 						new XElement("title", item.Title),
 						new XElement("description", "Item description"),
 						new XElement("link", "http://website.org/item"),
-						new XElement("guid", item.GetHashCode()),
+						new XElement("guid", item.Id),
 						new XElement("pubDate", "Mon, 06 Sep 2009 16:45:00 +0000")
 					)
 				)

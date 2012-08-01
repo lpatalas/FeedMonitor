@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.ServiceModel.Syndication;
 using System.Text;
 using System.Threading.Tasks;
 using FeedMonitor.Services;
@@ -38,6 +39,19 @@ namespace FeedMonitor.Models
 		{
 			var syndicationFeed = feedDownloader.GetFeed(url);
 			Title = syndicationFeed.Title.Text;
+
+			CopyItems(syndicationFeed.Items);
+		}
+
+		private void CopyItems(IEnumerable<SyndicationItem> sourceItems)
+		{
+			items.Clear();
+
+			foreach (var sourceItem in sourceItems)
+			{
+				var item = FeedItem.FromSyndicationItem(sourceItem);
+				items.Add(item);
+			}
 		}
 	}
 }
