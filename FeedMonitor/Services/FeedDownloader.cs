@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace FeedMonitor.Services
 {
-	public class FeedProvider : IFeedProvider
+	public class FeedDownloader : IFeedDownloader
 	{
 		public SyndicationFeed GetFeed(string url)
 		{

@@ -10,7 +10,7 @@ namespace FeedMonitor.ViewModels.Designer
 {
 	public class DesignerSubscriptionsViewModel : ISubscriptionsViewModel
 	{
-		private readonly IFeedProvider feedProvider = new NullFeedProvider();
+		private readonly IFeedDownloader feedDownloader = new NullFeedDownloader();
 		private readonly IList<Subscription> subscriptions = new List<Subscription>();
 
 		public IEnumerable<Subscription> Subscriptions
@@ -20,9 +20,9 @@ namespace FeedMonitor.ViewModels.Designer
 
 		public DesignerSubscriptionsViewModel()
 		{
-			subscriptions.Add(new Subscription("Fabulous Adventures In Coding", @"http://blogs.msdn.com/b/ericlippert/rss.aspx", feedProvider));
-			subscriptions.Add(new Subscription("The Old New Thing", @"http://blogs.msdn.com/b/oldnewthing/rss.aspx", feedProvider));
-			subscriptions.Add(new Subscription("Scott Hanselman", @"http://feeds.feedburner.com/ScottHanselman", feedProvider));
+			subscriptions.Add(new Subscription("Fabulous Adventures In Coding", @"http://blogs.msdn.com/b/ericlippert/rss.aspx", feedDownloader));
+			subscriptions.Add(new Subscription("The Old New Thing", @"http://blogs.msdn.com/b/oldnewthing/rss.aspx", feedDownloader));
+			subscriptions.Add(new Subscription("Scott Hanselman", @"http://feeds.feedburner.com/ScottHanselman", feedDownloader));
 		}
 
 		public void AddSubscription(string url)

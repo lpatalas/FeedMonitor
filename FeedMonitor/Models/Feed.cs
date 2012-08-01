@@ -10,7 +10,7 @@ namespace FeedMonitor.Models
 {
 	public class Feed
 	{
-		private readonly IFeedProvider feedProvider;
+		private readonly IFeedDownloader feedDownloader;
 		private readonly IList<FeedItem> items = new List<FeedItem>();
 		private readonly string url;
 
@@ -25,18 +25,18 @@ namespace FeedMonitor.Models
 			private set;
 		}
 
-		public Feed(IFeedProvider feedProvider, string url)
+		public Feed(IFeedDownloader feedDownloader, string url)
 		{
-			Contract.Requires(feedProvider != null);
+			Contract.Requires(feedDownloader != null);
 			Contract.Requires(!string.IsNullOrEmpty(url));
 
-			this.feedProvider = feedProvider;
+			this.feedDownloader = feedDownloader;
 			this.url = url;
 		}
 
 		public void Update()
 		{
-			var syndicationFeed = feedProvider.GetFeed(url);
+			var syndicationFeed = feedDownloader.GetFeed(url);
 			Title = syndicationFeed.Title.Text;
 		}
 	}

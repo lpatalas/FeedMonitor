@@ -19,16 +19,16 @@ namespace FeedMonitor.UnitTests.ViewModels
 
 		public abstract class TestBase
 		{
-			protected IFeedProvider feedProvider = new FakeFeedProvider();
+			protected IFeedDownloader feedDownloader = new FakeFeedDownloader();
 			protected IMessageBoxService messageBoxService;
 			protected ISubscriptionFactory subscriptionFactory;
 			protected SubscriptionsViewModel viewModel;
 
 			public TestBase()
 			{
-				feedProvider = new FakeFeedProvider();
+				feedDownloader = new FakeFeedDownloader();
 				messageBoxService = A.Fake<IMessageBoxService>();
-				subscriptionFactory = new FakeSubscriptionFactory(feedProvider);
+				subscriptionFactory = new FakeSubscriptionFactory(feedDownloader);
 				viewModel = new SubscriptionsViewModel(messageBoxService, subscriptionFactory);
 			}
 		}

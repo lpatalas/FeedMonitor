@@ -14,14 +14,14 @@ namespace FeedMonitor.UnitTests.Models
 	{
 		public abstract class Test
 		{
-			protected readonly FakeFeedProvider feedProvider;
+			protected readonly FakeFeedDownloader feedDownloader;
 			protected readonly Feed feed;
 			protected const string feedUrl = "http://website.org/rss";
 
 			public Test()
 			{
-				feedProvider = new FakeFeedProvider();
-				feed = new Feed(feedProvider, feedUrl);
+				feedDownloader = new FakeFeedDownloader();
+				feed = new Feed(feedDownloader, feedUrl);
 			}
 		}
 			 
@@ -36,18 +36,18 @@ namespace FeedMonitor.UnitTests.Models
 				feed.Update();
 
 				// Assert
-				feed.Title.Should().Be(FakeFeedProvider.FeedTitle);
+				feed.Title.Should().Be(FakeFeedDownloader.FeedTitle);
 			}
 
 			[Fact]
-			public void Should_use_IFeedProvider_to_get_feed_from_specfied_URL()
+			public void Should_use_IFeedDownloader_to_get_feed_from_specfied_URL()
 			{
 				// Arrange
 				string requestedUrl = null;
-				feedProvider.GetFeed = url =>
+				feedDownloader.GetFeed = url =>
 				{
 					requestedUrl = url;
-					return feedProvider.GetFeedDefaultImpl(url);
+					return feedDownloader.GetFeedDefaultImpl(url);
 				};
 
 				// Act

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FeedMonitor.Services
 {
-	public interface IFeedProvider
+	public interface IFeedDownloader
 	{
 		SyndicationFeed GetFeed(string url);
 	}

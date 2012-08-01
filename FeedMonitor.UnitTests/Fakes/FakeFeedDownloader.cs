@@ -10,19 +10,19 @@ using FeedMonitor.Services;
 
 namespace FeedMonitor.UnitTests.Fakes
 {
-	public class FakeFeedProvider : IFeedProvider
+	public class FakeFeedDownloader : IFeedDownloader
 	{
 		public const string FeedTitle = "Test Feed";
 		public const string FeedUrl = "http://www.test.com/";
 
 		public Func<string, SyndicationFeed> GetFeed;
 
-		public FakeFeedProvider()
+		public FakeFeedDownloader()
 		{
 			GetFeed = GetFeedDefaultImpl;
 		}
 
-		SyndicationFeed IFeedProvider.GetFeed(string url)
+		SyndicationFeed IFeedDownloader.GetFeed(string url)
 		{
 			return GetFeed(url);
 		}

@@ -15,7 +15,7 @@ namespace FeedMonitor.Models
 		private const string defaultTitle = "Untitled";
 
 		private readonly Feed feed;
-		private readonly IFeedProvider feedProvider;
+		private readonly IFeedDownloader feedDownloader;
 		private readonly string url;
 
 		public Feed Feed
@@ -34,18 +34,18 @@ namespace FeedMonitor.Models
 			get { return url; }
 		}
 
-		public Subscription(string url, IFeedProvider feedProvider)
-			: this(defaultTitle, url, feedProvider)
+		public Subscription(string url, IFeedDownloader feedDownloader)
+			: this(defaultTitle, url, feedDownloader)
 		{
 		}
 
-		public Subscription(string title, string url, IFeedProvider feedProvider)
+		public Subscription(string title, string url, IFeedDownloader feedDownloader)
 		{
-			Contract.Requires(feedProvider != null);
+			Contract.Requires(feedDownloader != null);
 			Contract.Requires(!string.IsNullOrEmpty(url));
 
-			this.feed = new Feed(feedProvider, url);
-			this.feedProvider = feedProvider;
+			this.feed = new Feed(feedDownloader, url);
+			this.feedDownloader = feedDownloader;
 			this.Title = title;
 			this.url = url;
 		}
@@ -58,7 +58,7 @@ namespace FeedMonitor.Models
 
 		private Task<SyndicationFeed> LoadFeed()
 		{
-			return Task.Factory.StartNew(() => feedProvider.GetFeed(Url));
+			return Task.Factory.StartNew(() => feedDownloader.GetFeed(Url));
 		}
 	}
 }

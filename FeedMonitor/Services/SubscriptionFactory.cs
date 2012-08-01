@@ -9,21 +9,21 @@ namespace FeedMonitor.Services
 {
 	public class SubscriptionFactory : ISubscriptionFactory
 	{
-		private readonly IFeedProvider feedProvider;
+		private readonly IFeedDownloader feedDownloader;
 
 		public SubscriptionFactory()
-			: this(new FeedProvider())
+			: this(new FeedDownloader())
 		{
 		}
 
-		public SubscriptionFactory(IFeedProvider feedProvider)
+		public SubscriptionFactory(IFeedDownloader feedDownloader)
 		{
-			this.feedProvider = feedProvider;
+			this.feedDownloader = feedDownloader;
 		}
 
 		public Subscription Create(string url)
 		{
-			return new Subscription(url, feedProvider);
+			return new Subscription(url, feedDownloader);
 		}
 	}
 }

@@ -16,29 +16,29 @@ namespace FeedMonitor.UnitTests.Models
 	{
 		public abstract class TestBase
 		{
-			protected readonly FakeFeedProvider feedProvider;
+			protected readonly FakeFeedDownloader feedDownloader;
 			protected readonly Subscription subscription;
 			protected const string subscriptionUrl = "http://www.subscription.com/rss";
 
 			public TestBase()
 			{
-				feedProvider = new FakeFeedProvider();
-				subscription = new Subscription(subscriptionUrl, feedProvider);
+				feedDownloader = new FakeFeedDownloader();
+				subscription = new Subscription(subscriptionUrl, feedDownloader);
 			}
 		}
 
 		public class RefreshFeedMethod : TestBase
 		{
 			[Fact]
-			public void Should_use_IFeedProvider_to_get_feed_data_from_specified_url()
+			public void Should_use_IFeedDownloader_to_get_feed_data_from_specified_url()
 			{
 				// Arrange
 				string requestedUrl = null;
 
-				feedProvider.GetFeed = (url) =>
+				feedDownloader.GetFeed = (url) =>
 				{
 					requestedUrl = url;
-					return feedProvider.GetFeedDefaultImpl(url);
+					return feedDownloader.GetFeedDefaultImpl(url);
 				};
 
 				// Act
@@ -62,7 +62,7 @@ namespace FeedMonitor.UnitTests.Models
 				task.Wait();
 
 				// Assert
-				subscription.Title.Should().Be(FakeFeedProvider.FeedTitle);
+				subscription.Title.Should().Be(FakeFeedDownloader.FeedTitle);
 			}
 		}
 	}
