@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FeedMonitor.Models;
+using FeedMonitor.Services;
 using FeedMonitor.UnitTests.Fakes;
 using FluentAssertions;
 using Xunit;
 
-namespace FeedMonitor.UnitTests.Models
+namespace FeedMonitor.UnitTests.Services
 {
 	public class SubscriptionsClass
 	{

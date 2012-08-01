@@ -4,9 +4,10 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FeedMonitor.Models;
 using FeedMonitor.Services;
 
-namespace FeedMonitor.Models
+namespace FeedMonitor.Services
 {
 	public class Subscriptions : ISubscriptions
 	{

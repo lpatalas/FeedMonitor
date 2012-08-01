@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using FeedMonitor.Models;
 
-namespace FeedMonitor.Models
+namespace FeedMonitor.Services
 {
 	public interface ISubscriptions
 	{
