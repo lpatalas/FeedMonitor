@@ -4,6 +4,7 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Caliburn.Micro;
 using FeedMonitor.Models;
 using FeedMonitor.Services;
 
@@ -12,7 +13,7 @@ namespace FeedMonitor.Services
 	public class Subscriptions : ISubscriptions
 	{
 		private readonly IFeedFactory feedFactory;
-		private readonly IList<Feed> feeds = new List<Feed>();
+		private readonly IList<Feed> feeds = new BindableCollection<Feed>();
 
 		public IList<Feed> Feeds
 		{

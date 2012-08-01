@@ -13,7 +13,6 @@ namespace FeedMonitor.ViewModels
 	public class SubscriptionsViewModel : PropertyChangedBase, ISubscriptionsViewModel
 	{
 		private readonly IFeedFactory feedFactory;
-		private readonly BindableCollection<Feed> feeds = new BindableCollection<Feed>();
 		private readonly IMessageBoxService messageBoxService;
 		private readonly ISubscriptions subscriptions;
 

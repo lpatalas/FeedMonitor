@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace FeedMonitor.UnitTests.Services
 			protected readonly FakeFeedDownloader feedDownloader;
 			protected readonly FakeFeedFactory feedFactory;
 			protected readonly Subscriptions subscriptions;
+			protected const string testUrl = @"http://blogs.msdn.com/b/ericlippert/rss.aspx";
 
 			public Test()
 			{
@@ -27,30 +29,65 @@ namespace FeedMonitor.UnitTests.Services
 			}
 		}
 
+		public class FeedsProperty : Test
+		{
+			[Fact]
+			public void Should_notify_when_feed_was_added()
+			{
+				// Arrange
+				var notifier = (INotifyCollectionChanged)subscriptions.Feeds;
+				NotifyCollectionChangedEventArgs eventArgs = null;
+
+				notifier.CollectionChanged += (sender, e) => { eventArgs = e; };
+
+				// Act
+				subscriptions.Add(testUrl);
+
+				// Assert
+				eventArgs.Should().NotBeNull();
+			}
+
+			[Fact]
+			public void Should_notify_when_feed_was_removed()
+			{
+				// Arrange
+				subscriptions.Add(testUrl);
+				var feed = subscriptions.Feeds.First();
+
+				var notifier = (INotifyCollectionChanged)subscriptions.Feeds;
+				NotifyCollectionChangedEventArgs eventArgs = null;
+				notifier.CollectionChanged += (sender, e) => { eventArgs = e; };
+
+				// Act
+				subscriptions.Remove(feed);
+
+				// Assert
+				eventArgs.Should().NotBeNull();
+			}
+		}
+
 		public class AddMethod : Test
 		{
 			[Fact]
 			public void Should_create_feed_for_specified_URL_and_add_it_to_the_list_of_feeds()
 			{
 				// Arrange
-				var url = @"http://blogs.msdn.com/b/ericlippert/rss.aspx";
 
 				// Act
-				subscriptions.Add(url);
+				subscriptions.Add(testUrl);
 
 				// Assert
-				subscriptions.Feeds.Should().Contain(feed => feed.Url.Equals(url, StringComparison.Ordinal));
+				subscriptions.Feeds.Should().Contain(feed => feed.Url.Equals(testUrl, StringComparison.Ordinal));
 			}
 
 			[Fact]
 			public void Should_throw_when_URL_is_already_subscribed()
 			{
 				// Arrange
-				var url = @"http://blogs.msdn.com/b/ericlippert/rss.aspx";
-				subscriptions.Add(url);
+				subscriptions.Add(testUrl);
 
 				// Act
-				Action act = () => { subscriptions.Add(url); };
+				Action act = () => { subscriptions.Add(testUrl); };
 
 				// Assert
 				act.ShouldThrow<InvalidOperationException>();
@@ -63,8 +100,7 @@ namespace FeedMonitor.UnitTests.Services
 			public void Should_remove_feed_from_list_of_feeds()
 			{
 				// Arrange
-				var url = @"http://blogs.msdn.com/b/ericlippert/rss.aspx";
-				subscriptions.Add(url);
+				subscriptions.Add(testUrl);
 
 				var feed = subscriptions.Feeds.First();
 
