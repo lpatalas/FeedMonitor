@@ -109,7 +109,7 @@
 				 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
 				 Background="Transparent">
 			<ListBox.ItemTemplate>
-				<DataTemplate DataType="{x:Type models:Subscription}">
+				<DataTemplate DataType="{x:Type models:Feed}">
 					<Grid>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*"/>

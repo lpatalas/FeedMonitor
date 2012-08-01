@@ -77,7 +77,6 @@
     <Compile Include="Services\FeedDownloader.cs" />
     <Compile Include="Services\IFeedDownloader.cs" />
     <Compile Include="Services\ISubscriptionFactory.cs" />
-    <Compile Include="Models\Subscription.cs" />
     <Compile Include="Services\NullFeedDownloader.cs" />
     <Compile Include="Services\SubscriptionFactory.cs" />
     <Compile Include="Services\IMessageBoxService.cs" />
