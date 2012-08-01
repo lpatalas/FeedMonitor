@@ -31,8 +31,8 @@ namespace FeedMonitor.UnitTests.Models
 			public void Should_fill_Items_collection_with_all_items_downloaded_from_feed()
 			{
 				// Arrange
-				feedDownloader.FeedItems.Add(new FeedItem("1", "First"));
-				feedDownloader.FeedItems.Add(new FeedItem("2", "Second"));
+				feedDownloader.FeedItems.Add(new FeedItem("1", new DateTime(2012, 2, 1, 11, 12, 0), "First"));
+				feedDownloader.FeedItems.Add(new FeedItem("2", new DateTime(2012, 1, 23, 15, 34, 18), "Second"));
 
 				// Act
 				feed.Update();

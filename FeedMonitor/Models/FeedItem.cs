@@ -11,6 +11,7 @@ namespace FeedMonitor.Models
 	public class FeedItem : IEquatable<FeedItem>
 	{
 		private readonly string id;
+		private readonly DateTimeOffset publishDate;
 		private readonly string title;
 
 		public string Id
@@ -18,14 +19,20 @@ namespace FeedMonitor.Models
 			get { return id; }
 		}
 
+		public DateTimeOffset PublishDate
+		{
+			get { return publishDate; }
+		}
+
 		public string Title
 		{
 			get { return title; }
 		}
 
-		public FeedItem(string id, string title)
+		public FeedItem(string id, DateTimeOffset publishDate, string title)
 		{
 			this.id = id;
+			this.publishDate = publishDate;
 			this.title = title;
 		}
 
