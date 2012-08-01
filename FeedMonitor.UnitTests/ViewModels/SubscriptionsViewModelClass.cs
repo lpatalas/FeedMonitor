@@ -37,24 +37,24 @@ namespace FeedMonitor.UnitTests.ViewModels
 		{
 			public TestWithSingleSubscription()
 			{
-				viewModel.AddSubscription(testUrl);
+				viewModel.Subscribe(testUrl);
 			}
 		}
 
-		public class AddSubscriptionMethod : TestBase
+		public class SubscribeMethod : TestBase
 		{
 			[Fact]
-			public void Should_add_URL_to_list_of_subscriptions()
+			public void Should_add_URL_to_list_of_feeds()
 			{
 				// Arrange
 				var sourceUrl = testUrl;
 
 				// Act
-				viewModel.AddSubscription(sourceUrl);
+				viewModel.Subscribe(sourceUrl);
 
 				// Assert
-				viewModel.Subscriptions
-					.Should().Contain(item => item.Url.Equals(sourceUrl, StringComparison.Ordinal));
+				viewModel.Feeds.Should().Contain(
+					item => item.Url.Equals(sourceUrl, StringComparison.Ordinal));
 			}
 
 			[Fact]
@@ -64,24 +64,24 @@ namespace FeedMonitor.UnitTests.ViewModels
 				var sourceUrl = testUrl;
 
 				// Act
-				viewModel.AddSubscription(sourceUrl);
-				viewModel.AddSubscription(sourceUrl);
+				viewModel.Subscribe(sourceUrl);
+				viewModel.Subscribe(sourceUrl);
 
 				// Assert
-				viewModel.Subscriptions.Should().HaveCount(1);
+				viewModel.Feeds.Should().HaveCount(1);
 			}
 		}
 
-		public class RemoveSubscriptionMethod : TestWithSingleSubscription
+		public class UnsubscribeMethod : TestWithSingleSubscription
 		{
 			[Fact]
 			public void Should_display_confirmation_dialog_box()
 			{
 				// Arrange
-				var subscription = viewModel.Subscriptions.First();
+				var feed = viewModel.Feeds.First();
 
 				// Act
-				viewModel.RemoveSubscription(subscription);
+				viewModel.Unsubscribe(feed);
 
 				// Assert
 				A.CallTo(() => messageBoxService.ShowYesNoDialog(A<string>.Ignored, A<string>.Ignored))
@@ -95,29 +95,29 @@ namespace FeedMonitor.UnitTests.ViewModels
 				A.CallTo(() => messageBoxService.ShowYesNoDialog(A<string>.Ignored, A<string>.Ignored))
 					.Returns(false);
 
-				var subscription = viewModel.Subscriptions.First();
+				var feed = viewModel.Feeds.First();
 
 				// Act
-				viewModel.RemoveSubscription(subscription);
+				viewModel.Unsubscribe(feed);
 
 				// Assert
-				viewModel.Subscriptions.Should().Contain(subscription);
+				viewModel.Feeds.Should().Contain(feed);
 			}
 
 			[Fact]
-			public void Should_remove_specified_subscription_from_list_when_user_confirms_removal()
+			public void Should_remove_specified_feed_from_list_when_user_confirms_removal()
 			{
 				// Arrange
 				A.CallTo(() => messageBoxService.ShowYesNoDialog(A<string>.Ignored, A<string>.Ignored))
 					.Returns(true);
 
-				var subscription = viewModel.Subscriptions.First();
+				var feed = viewModel.Feeds.First();
 
 				// Act
-				viewModel.RemoveSubscription(subscription);
+				viewModel.Unsubscribe(feed);
 
 				// Assert
-				viewModel.Subscriptions.Should().NotContain(subscription);
+				viewModel.Feeds.Should().NotContain(feed);
 			}
 		}
 	}

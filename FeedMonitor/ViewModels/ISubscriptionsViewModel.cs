@@ -9,9 +9,9 @@ namespace FeedMonitor.ViewModels
 {
 	public interface ISubscriptionsViewModel
 	{
-		IEnumerable<Feed> Subscriptions { get; }
+		IEnumerable<Feed> Feeds { get; }
 
-		void AddSubscription(string url);
-		void RemoveSubscription(Feed subscription);
+		void Subscribe(string url);
+		void Unsubscribe(Feed feed);
 	}
 }

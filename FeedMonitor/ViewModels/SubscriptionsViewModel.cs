@@ -12,12 +12,12 @@ namespace FeedMonitor.ViewModels
 	public class SubscriptionsViewModel : PropertyChangedBase, ISubscriptionsViewModel
 	{
 		private readonly IFeedFactory feedFactory;
+		private readonly BindableCollection<Feed> feeds = new BindableCollection<Feed>();
 		private readonly IMessageBoxService messageBoxService;
-		private readonly BindableCollection<Feed> subscriptions = new BindableCollection<Feed>();
 
-		public IEnumerable<Feed> Subscriptions
+		public IEnumerable<Feed> Feeds
 		{
-			get { return subscriptions; }
+			get { return feeds; }
 		}
 
 		public SubscriptionsViewModel(IFeedFactory feedFactory, IMessageBoxService messageBoxService)
@@ -26,22 +26,22 @@ namespace FeedMonitor.ViewModels
 			this.messageBoxService = messageBoxService;
 		}
 
-		public void AddSubscription(string sourceUrl)
+		public void Subscribe(string sourceUrl)
 		{
-			var alreadyExists = subscriptions.Any(item => item.Url.Equals(sourceUrl, StringComparison.Ordinal));
+			var alreadyExists = feeds.Any(item => item.Url.Equals(sourceUrl, StringComparison.Ordinal));
 			if (!alreadyExists)
 			{
 				var newSubscription = feedFactory.Create(sourceUrl);
-				subscriptions.Add(newSubscription);
+				feeds.Add(newSubscription);
 			}
 		}
 
-		public void RemoveSubscription(Feed subscription)
+		public void Unsubscribe(Feed feed)
 		{
-			var userConfirmed = messageBoxService.ShowYesNoDialog("Do you really want to delete specified subscription?", "Delete subscription?");
+			var userConfirmed = messageBoxService.ShowYesNoDialog("Do you really want to unsubscribe specified feed?", "Unsubscribe feed?");
 
 			if (userConfirmed)
-				subscriptions.Remove(subscription);
+				feeds.Remove(feed);
 		}
 	}
 }

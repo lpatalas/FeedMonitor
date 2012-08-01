@@ -101,9 +101,9 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<controls:PlaceholderTextBox x:Name="newSubscriptionUrl" PlaceholderText="Enter feed URL..." />
-		<Button cal:Message.Attach="[Event Click] = [Action AddSubscription(newSubscriptionUrl.Text)]"
+		<Button cal:Message.Attach="[Event Click] = [Action Subscribe(newSubscriptionUrl.Text)]"
 					Grid.Column="1" Content="Add"/>
-		<ListBox ItemsSource="{Binding Subscriptions}"
+		<ListBox ItemsSource="{Binding Feeds}"
 				 Grid.ColumnSpan="2"
 				 Grid.Row="1"
 				 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -122,7 +122,7 @@
 						<TextBlock FontSize="16"
 									Foreground="White"
 									Text="{Binding Title}" />
-						<Button cal:Message.Attach="[Event Click] = [Action RemoveSubscription($dataContext)]"
+						<Button cal:Message.Attach="[Event Click] = [Action Unsubscribe($dataContext)]"
 								Grid.Column="1"
 								Grid.RowSpan="2"
 								Content="x"
