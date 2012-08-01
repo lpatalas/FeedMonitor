@@ -74,15 +74,15 @@
     <Compile Include="DefaultNinjectModule.cs" />
     <Compile Include="Models\Feed.cs" />
     <Compile Include="Models\FeedItem.cs" />
-    <Compile Include="Models\ISubscriptions.cs" />
-    <Compile Include="Models\Subscriptions.cs" />
     <Compile Include="Services\FeedDownloader.cs" />
     <Compile Include="Services\FeedFactory.cs" />
     <Compile Include="Services\IFeedDownloader.cs" />
     <Compile Include="Services\IFeedFactory.cs" />
+    <Compile Include="Services\ISubscriptions.cs" />
     <Compile Include="Services\NullFeedDownloader.cs" />
     <Compile Include="Services\IMessageBoxService.cs" />
     <Compile Include="Services\MessageBoxService.cs" />
+    <Compile Include="Services\Subscriptions.cs" />
     <Compile Include="ViewModels\Designer\DesignerMessageBoxViewModel.cs" />
     <Compile Include="ViewModels\Designer\DesignerSubscriptionsViewModel.cs" />
     <Compile Include="ViewModels\ISubscriptionsViewModel.cs" />
