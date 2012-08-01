@@ -74,6 +74,7 @@
     <Compile Include="DefaultNinjectModule.cs" />
     <Compile Include="Models\Feed.cs" />
     <Compile Include="Models\FeedItem.cs" />
+    <Compile Include="Models\ISubscriptions.cs" />
     <Compile Include="Models\Subscriptions.cs" />
     <Compile Include="Services\FeedDownloader.cs" />
     <Compile Include="Services\FeedFactory.cs" />
