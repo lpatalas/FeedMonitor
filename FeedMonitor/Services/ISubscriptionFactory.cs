@@ -9,6 +9,6 @@ namespace FeedMonitor.Services
 {
 	public interface ISubscriptionFactory
 	{
-		Subscription Create(string url);
+		Feed Create(string url);
 	}
 }

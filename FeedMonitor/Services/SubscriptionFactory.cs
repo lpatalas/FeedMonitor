@@ -21,9 +21,9 @@ namespace FeedMonitor.Services
 			this.feedDownloader = feedDownloader;
 		}
 
-		public Subscription Create(string url)
+		public Feed Create(string url)
 		{
-			return new Subscription(url, feedDownloader);
+			return new Feed(feedDownloader, url);
 		}
 	}
 }

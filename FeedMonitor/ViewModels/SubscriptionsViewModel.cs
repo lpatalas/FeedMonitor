@@ -12,10 +12,10 @@ namespace FeedMonitor.ViewModels
 	public class SubscriptionsViewModel : PropertyChangedBase, ISubscriptionsViewModel
 	{
 		private readonly IMessageBoxService messageBoxService;
-		private readonly BindableCollection<Subscription> subscriptions = new BindableCollection<Subscription>();
+		private readonly BindableCollection<Feed> subscriptions = new BindableCollection<Feed>();
 		private readonly ISubscriptionFactory subscriptionFactory;
 
-		public IEnumerable<Subscription> Subscriptions
+		public IEnumerable<Feed> Subscriptions
 		{
 			get { return subscriptions; }
 		}
@@ -38,7 +38,7 @@ namespace FeedMonitor.ViewModels
 			}
 		}
 
-		public void RemoveSubscription(Subscription subscription)
+		public void RemoveSubscription(Feed subscription)
 		{
 			var userConfirmed = messageBoxService.ShowYesNoDialog("Do you really want to delete specified subscription?", "Delete subscription?");
 

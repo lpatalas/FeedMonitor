@@ -17,9 +17,9 @@ namespace FeedMonitor.UnitTests.Fakes
 			this.feedDownloader = feedDownloader;
 		}
 
-		public virtual Subscription Create(string url)
+		public virtual Feed Create(string url)
 		{
-			return new Subscription(url, feedDownloader);
+			return new Feed(feedDownloader, url);
 		}
 	}
 }

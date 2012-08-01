@@ -11,18 +11,18 @@ namespace FeedMonitor.ViewModels.Designer
 	public class DesignerSubscriptionsViewModel : ISubscriptionsViewModel
 	{
 		private readonly IFeedDownloader feedDownloader = new NullFeedDownloader();
-		private readonly IList<Subscription> subscriptions = new List<Subscription>();
+		private readonly IList<Feed> subscriptions = new List<Feed>();
 
-		public IEnumerable<Subscription> Subscriptions
+		public IEnumerable<Feed> Subscriptions
 		{
 			get { return subscriptions; }
 		}
 
 		public DesignerSubscriptionsViewModel()
 		{
-			subscriptions.Add(new Subscription("Fabulous Adventures In Coding", @"http://blogs.msdn.com/b/ericlippert/rss.aspx", feedDownloader));
-			subscriptions.Add(new Subscription("The Old New Thing", @"http://blogs.msdn.com/b/oldnewthing/rss.aspx", feedDownloader));
-			subscriptions.Add(new Subscription("Scott Hanselman", @"http://feeds.feedburner.com/ScottHanselman", feedDownloader));
+			subscriptions.Add(new Feed(feedDownloader, @"http://blogs.msdn.com/b/ericlippert/rss.aspx"));
+			subscriptions.Add(new Feed(feedDownloader, @"http://blogs.msdn.com/b/oldnewthing/rss.aspx"));
+			subscriptions.Add(new Feed(feedDownloader, @"http://feeds.feedburner.com/ScottHanselman"));
 		}
 
 		public void AddSubscription(string url)
@@ -30,7 +30,7 @@ namespace FeedMonitor.ViewModels.Designer
 			throw new NotImplementedException();
 		}
 
-		public void RemoveSubscription(Models.Subscription subscription)
+		public void RemoveSubscription(Feed subscription)
 		{
 			throw new NotImplementedException();
 		}
