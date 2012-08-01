@@ -40,6 +40,20 @@ namespace FeedMonitor.UnitTests.Models
 				// Assert
 				subscriptions.Feeds.Should().Contain(feed => feed.Url.Equals(url, StringComparison.Ordinal));
 			}
+
+			[Fact]
+			public void Should_throw_when_URL_is_already_subscribed()
+			{
+				// Arrange
+				var url = @"http://blogs.msdn.com/b/ericlippert/rss.aspx";
+				subscriptions.Add(url);
+
+				// Act
+				Action act = () => { subscriptions.Add(url); };
+
+				// Assert
+				act.ShouldThrow<InvalidOperationException>();
+			}
 		}
 
 		public class RemoveMethod : Test
