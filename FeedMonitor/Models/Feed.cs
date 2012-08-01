@@ -47,10 +47,10 @@ namespace FeedMonitor.Models
 		{
 			items.Clear();
 
-			foreach (var sourceItem in sourceItems)
+			foreach (var sourceItem in sourceItems.OrderByDescending(item => item.PublishDate))
 			{
-				var item = FeedItem.FromSyndicationItem(sourceItem);
-				items.Add(item);
+				var newItem = FeedItem.FromSyndicationItem(sourceItem);
+				items.Add(newItem);
 			}
 		}
 	}
