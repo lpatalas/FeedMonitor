@@ -10,18 +10,21 @@ namespace FeedMonitor.Models
 {
 	public class FeedItem
 	{
-		public string Title { get; set; }
+		private readonly string title;
+
+		public string Title
+		{
+			get { return title; }
+		}
 
 		public static FeedItem FromSyndicationItem(SyndicationItem sourceItem)
 		{
-			return new FeedItem
-			{
-				Title = sourceItem.Title.Text
-			};
+			return new FeedItem(sourceItem);
 		}
 
-		public FeedItem()
+		private FeedItem(SyndicationItem item)
 		{
+			this.title = item.Title.Text;
 		}
 	}
 }

@@ -6,19 +6,24 @@ using System.ServiceModel.Syndication;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
+using FeedMonitor.Models;
 using FeedMonitor.Services;
 
 namespace FeedMonitor.UnitTests.Fakes
 {
 	public class FakeFeedDownloader : IFeedDownloader
 	{
-		public const string FeedTitle = "Test Feed";
-		public const string FeedUrl = "http://www.test.com/";
-
+		public IList<FeedItem> FeedItems { get; private set; }
+		public string FeedTitle { get; set; }
+		public string FeedUrl { get; set; }
 		public Func<string, SyndicationFeed> GetFeed;
 
 		public FakeFeedDownloader()
 		{
+			FeedItems = new List<FeedItem>();
+			FeedTitle = "Test Feed";
+			FeedUrl = "http://www.test.com/";
 			GetFeed = GetFeedDefaultImpl;
 		}
 
@@ -29,32 +34,38 @@ namespace FeedMonitor.UnitTests.Fakes
 
 		public SyndicationFeed GetFeedDefaultImpl(string url)
 		{
-			using (var reader = XmlReader.Create(new StringReader(feedSource)))
+			var feedSource = GenerateFeed();
+			var sourceReader = new StringReader(feedSource);
+
+			using (var reader = XmlReader.Create(sourceReader))
 			{
 				return SyndicationFeed.Load(reader);
 			}
 		}
 
-		private const string feedSource = @"<?xml version=""1.0"" encoding=""UTF-8"" ?>
-<rss version=""2.0"">
-<channel>
-        <title>" + FeedTitle + @"</title>
-        <description>This is an example of an RSS feed</description>
-        <link>" + FeedUrl + @"</link>
-        <lastBuildDate>Mon, 06 Sep 2010 00:01:00 +0000 </lastBuildDate>
-        <pubDate>Mon, 06 Sep 2009 16:45:00 +0000 </pubDate>
-        <ttl>1800</ttl>
- 
-        <item>
-                <title>Example entry</title>
-                <description>Here is some text containing an interesting description.</description>
-                <link>http://www.wikipedia.org/</link>
-                <guid>unique string per item</guid>
-                <pubDate>Mon, 06 Sep 2009 16:45:00 +0000 </pubDate>
-        </item>
- 
-</channel>
-</rss>
-";
+		private string GenerateFeed()
+		{
+			var xml = new XElement("rss",
+				new XAttribute("version", "2.0"),
+				new XElement("channel",
+					new XElement("title", FeedTitle),
+					new XElement("description", "Test feed"),
+					new XElement("link", FeedUrl),
+					new XElement("lastBuildDate", "Mon, 06 Sep 2010 00:01:00 +0000"),
+					new XElement("pubDate", "Mon, 06 Sep 2009 16:45:00 +0000"),
+					new XElement("ttl", 1800),
+					from item in FeedItems
+					select new XElement("item",
+						new XElement("title", item.Title),
+						new XElement("description", "Item description"),
+						new XElement("link", "http://website.org/item"),
+						new XElement("guid", item.GetHashCode()),
+						new XElement("pubDate", "Mon, 06 Sep 2009 16:45:00 +0000")
+					)
+				)
+			);
+
+			return xml.ToString();
+		}
 	}
 }

@@ -28,6 +28,18 @@ namespace FeedMonitor.UnitTests.Models
 		public class UpdateMethod : Test
 		{
 			[Fact]
+			public void Should_fill_Items_collection_with_all_items_downloaded_from_feed()
+			{
+				// Arrange
+
+				// Act
+				feed.Update();
+
+				// Assert
+				//feed.Items.Should().Contain(
+			}
+
+			[Fact]
 			public void Should_set_Title_property_to_title_found_in_downloaded_feed()
 			{
 				// Arrange
@@ -36,7 +48,7 @@ namespace FeedMonitor.UnitTests.Models
 				feed.Update();
 
 				// Assert
-				feed.Title.Should().Be(FakeFeedDownloader.FeedTitle);
+				feed.Title.Should().Be(feedDownloader.FeedTitle);
 			}
 
 			[Fact]

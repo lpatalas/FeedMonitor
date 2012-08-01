@@ -62,7 +62,7 @@ namespace FeedMonitor.UnitTests.Models
 				task.Wait();
 
 				// Assert
-				subscription.Title.Should().Be(FakeFeedDownloader.FeedTitle);
+				subscription.Title.Should().Be(feedDownloader.FeedTitle);
 			}
 		}
 	}
