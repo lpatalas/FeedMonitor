@@ -7,16 +7,16 @@ using FeedMonitor.Models;
 
 namespace FeedMonitor.Services
 {
-	public class SubscriptionFactory : ISubscriptionFactory
+	public class FeedFactory : IFeedFactory
 	{
 		private readonly IFeedDownloader feedDownloader;
 
-		public SubscriptionFactory()
+		public FeedFactory()
 			: this(new FeedDownloader())
 		{
 		}
 
-		public SubscriptionFactory(IFeedDownloader feedDownloader)
+		public FeedFactory(IFeedDownloader feedDownloader)
 		{
 			this.feedDownloader = feedDownloader;
 		}
