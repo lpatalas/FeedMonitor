@@ -20,14 +20,31 @@ namespace FeedMonitor.UnitTests.Models
 
 		public abstract class FilledTest : Test
 		{
-			protected readonly IEnumerable<int> firstItems = new[] { 1, 2, 3 };
-			protected readonly IEnumerable<int> secondItems = new[] { 4, 5, 6 };
+			protected readonly IList<int> firstItems = new ObservableCollection<int>() { 1, 2, 3 };
+			protected readonly IList<int> secondItems = new ObservableCollection<int>() { 4, 5, 6 };
 
 			public FilledTest()
 			{
 				testedView.AddCollection(firstItems);
 				testedView.AddCollection(secondItems);
 			}
+		}
+
+		[Fact]
+		public void Should_apply_result_selector_when_enumerating_items()
+		{
+			// Arrange
+			Func<IEnumerable<int>, IEnumerable<int>> sortDescending
+				= input => input.OrderByDescending(x => x);
+			var testedView = new AggregateCollectionView<int>(sortDescending);
+			var inputItems = new[] { 1, 2, 3 };
+
+			// Act
+			testedView.AddCollection(inputItems);
+
+			// Assert
+			var expectedOutput = sortDescending(inputItems);
+			testedView.Should().ContainInOrder(expectedOutput);
 		}
 
 		public class AddCollectionMethod : Test
@@ -90,6 +107,53 @@ namespace FeedMonitor.UnitTests.Models
 				// Assert
 				var expectedResult = firstItems.Union(secondItems);
 				testedView.Should().Contain(expectedResult);
+			}
+		}
+
+		public class ClearMethod : FilledTest
+		{
+			[Fact]
+			public void Should_raise_CollectionChanged_event_with_Reset_action()
+			{
+				// Arrange
+				NotifyCollectionChangedEventArgs raisedEventArgs = null;
+				testedView.CollectionChanged += (sender, e) => { raisedEventArgs = e; };
+
+				// Act
+				testedView.Clear();
+
+				// Assert
+				raisedEventArgs.Should().NotBeNull();
+			}
+
+			[Fact]
+			public void Should_remove_all_collections_from_view()
+			{
+				// Arrange
+
+				// Act
+				testedView.Clear();
+
+				// Assert
+				testedView.Should().BeEmpty();
+			}
+
+			[Fact]
+			public void Should_unsubscribe_from_all_CollectionChanged_events_in_contained_collections()
+			{
+				// Arrange
+
+				// Act
+				testedView.Clear();
+
+				NotifyCollectionChangedEventArgs raisedEventArgs = null;
+				testedView.CollectionChanged += (sender, e) => { raisedEventArgs = e; };
+
+				firstItems.Add(1);
+				secondItems.Add(1);
+
+				// Assert
+				raisedEventArgs.Should().BeNull();
 			}
 		}
 

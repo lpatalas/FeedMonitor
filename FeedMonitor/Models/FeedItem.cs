@@ -60,6 +60,7 @@ namespace FeedMonitor.Models
 		private FeedItem(SyndicationItem item)
 		{
 			this.id = item.Id;
+			this.publishDate = item.PublishDate;
 			this.title = item.Title.Text;
 		}
 	}

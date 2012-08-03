@@ -51,32 +51,6 @@ namespace FeedMonitor.UnitTests.Fakes
 			feed.Title = new TextSyndicationContent(FeedTitle);
 
 			return feed;
-			//foreach (var item in FeedItems)
-			//{
-				
-			//}
-
-			//var xml = new XElement("rss",
-			//	new XAttribute("version", "2.0"),
-			//	new XElement("channel",
-			//		new XElement("title", FeedTitle),
-			//		new XElement("description", "Test feed"),
-			//		new XElement("link", FeedUrl),
-			//		new XElement("lastBuildDate", "Mon, 06 Sep 2010 00:01:00 +0000"),
-			//		new XElement("pubDate", "Mon, 06 Sep 2009 16:45:00 +0000"),
-			//		new XElement("ttl", 1800),
-			//		from item in FeedItems
-			//		select new XElement("item",
-			//			new XElement("title", item.Title),
-			//			new XElement("description", "Item description"),
-			//			new XElement("link", "http://website.org/item"),
-			//			new XElement("guid", item.Id),
-			//			new XElement("pubDate", item.PublishDate)
-			//		)
-			//	)
-			//);
-
-			//return xml.ToString();
 		}
 	}
 }

@@ -13,9 +13,9 @@ namespace FeedMonitor.Services
 	public class Subscriptions : ISubscriptions
 	{
 		private readonly IFeedFactory feedFactory;
-		private readonly IList<Feed> feeds = new BindableCollection<Feed>();
+		private readonly IObservableCollection<Feed> feeds = new BindableCollection<Feed>();
 
-		public IList<Feed> Feeds
+		public IObservableCollection<Feed> Feeds
 		{
 			get { return feeds; }
 		}

@@ -7,11 +7,22 @@ using System.Text;
 
 namespace FeedMonitor.Models
 {
-	public class AggregateCollectionView<TItem> : IEnumerable<TItem>, INotifyCollectionChanged
+	public class AggregateCollectionView<TItem> : IObservableEnumerable<TItem>
 	{
+		private static readonly Func<IEnumerable<TItem>, IEnumerable<TItem>> defaultResultSelector = input => input;
 		private readonly IList<IEnumerable<TItem>> collections = new List<IEnumerable<TItem>>();
 
 		public event NotifyCollectionChangedEventHandler CollectionChanged;
+		private Func<IEnumerable<TItem>, IEnumerable<TItem>> resultSelector = defaultResultSelector;
+
+		public AggregateCollectionView()
+		{
+		}
+
+		public AggregateCollectionView(Func<IEnumerable<TItem>, IEnumerable<TItem>> resultSelector)
+		{
+			this.resultSelector = resultSelector;
+		}
 
 		public void AddCollection(IEnumerable<TItem> collection)
 		{
@@ -35,6 +46,15 @@ namespace FeedMonitor.Models
 				UnhookCollectionChangedEvent(collection);
 				RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, collection));
 			}
+		}
+
+		public void Clear()
+		{
+			foreach (var collection in collections)
+				UnhookCollectionChangedEvent(collection);
+
+			collections.Clear();
+			RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 		}
 
 		private void HookCollectionChangedEvent(IEnumerable<TItem> collection)
@@ -65,8 +85,9 @@ namespace FeedMonitor.Models
 
 		public IEnumerator<TItem> GetEnumerator()
 		{
-			var items = collections.SelectMany(collection => collection);
-			return items.GetEnumerator();
+			var flatItems = collections.SelectMany(collection => collection);
+			var results = resultSelector(flatItems);
+			return results.GetEnumerator();
 		}
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
