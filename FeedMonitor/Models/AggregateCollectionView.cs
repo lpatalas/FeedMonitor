@@ -14,8 +14,18 @@ namespace FeedMonitor.Models
 
 		public void AddCollection(IEnumerable<TItem> input)
 		{
+			if (collections.Contains(input))
+				throw new InvalidOperationException("Collection was already added to this view.");
+
 			collections.Add(input);
 			RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, input));
+		}
+
+		public void RemoveCollection(IEnumerable<TItem> collection)
+		{
+			var wasRemoved = collections.Remove(collection);
+			if (wasRemoved)
+				RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, collection));
 		}
 
 		private void RaiseCollectionChanged(NotifyCollectionChangedEventArgs eventArgs)
