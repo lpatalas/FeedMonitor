@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
@@ -89,6 +90,44 @@ namespace FeedMonitor.UnitTests.Models
 				// Assert
 				var expectedResult = firstItems.Union(secondItems);
 				testedView.Should().Contain(expectedResult);
+			}
+		}
+
+		public class CollectionChangedEvent : Test
+		{
+			protected readonly ObservableCollection<int> items = new ObservableCollection<int>(new[] { 1, 2, 3 });
+			protected NotifyCollectionChangedEventArgs raisedEventArgs;
+
+			public CollectionChangedEvent()
+			{
+				testedView.AddCollection(items);
+				testedView.CollectionChanged += (sender, e) => { raisedEventArgs = e; };
+			}
+
+			[Fact]
+			public void Should_be_raised_when_collection_added_to_view_is_modified()
+			{
+				// Arrange
+
+				// Act
+				items.Add(5);
+
+				// Assert
+				raisedEventArgs.Should().NotBeNull();
+			}
+
+			[Fact]
+			public void Should_not_be_raised_when_collection_is_changed_after_removing_from_view()
+			{
+				// Arrange
+				testedView.RemoveCollection(items);
+				raisedEventArgs = null;
+
+				// Act
+				items.Add(5);
+
+				// Assert
+				raisedEventArgs.Should().BeNull();
 			}
 		}
 
