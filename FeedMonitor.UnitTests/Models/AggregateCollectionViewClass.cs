@@ -33,20 +33,6 @@ namespace FeedMonitor.UnitTests.Models
 		public class AddCollectionMethod : Test
 		{
 			[Fact]
-			public void Should_throw_when_the_same_collection_is_added_second_time()
-			{
-				// Arrange
-				var input = new[] { 1, 2, 3 };
-
-				// Act
-				testedView.AddCollection(input);
-				Action act = () => { testedView.AddCollection(input); };
-
-				// Assert
-				act.ShouldThrow<InvalidOperationException>();
-			}
-
-			[Fact]
 			public void Should_include_all_items_from_added_collection_in_the_view()
 			{
 				// Arrange
@@ -74,6 +60,20 @@ namespace FeedMonitor.UnitTests.Models
 				// Assert
 				raisedEventArgs.Should().NotBeNull();
 				raisedEventArgs.Action.Should().Be(NotifyCollectionChangedAction.Add);
+			}
+
+			[Fact]
+			public void Should_throw_when_the_same_collection_is_added_second_time()
+			{
+				// Arrange
+				var input = new[] { 1, 2, 3 };
+
+				// Act
+				testedView.AddCollection(input);
+				Action act = () => { testedView.AddCollection(input); };
+
+				// Assert
+				act.ShouldThrow<InvalidOperationException>();
 			}
 
 			[Fact]

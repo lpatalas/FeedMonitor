@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 
@@ -12,18 +13,22 @@ namespace FeedMonitor.Models
 
 		public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-		public void AddCollection(IEnumerable<TItem> input)
+		public void AddCollection(IEnumerable<TItem> collection)
 		{
-			if (collections.Contains(input))
+			Contract.Requires(collection != null);
+
+			if (collections.Contains(collection))
 				throw new InvalidOperationException("Collection was already added to this view.");
 
-			collections.Add(input);
-			HookCollectionChangedEvent(input);
-			RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, input));
+			collections.Add(collection);
+			HookCollectionChangedEvent(collection);
+			RaiseCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, collection));
 		}
 
 		public void RemoveCollection(IEnumerable<TItem> collection)
 		{
+			Contract.Requires(collections != null);
+
 			var wasRemoved = collections.Remove(collection);
 			if (wasRemoved)
 			{
