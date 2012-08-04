@@ -73,13 +73,12 @@
     <Compile Include="Fakes\FakeFeedDownloader.cs" />
     <Compile Include="Fakes\FakeFeedFactory.cs" />
     <Compile Include="Fakes\FakeWindowManager.cs" />
-    <Compile Include="Models\AggregateCollectionViewClass.cs" />
     <Compile Include="Models\FeedClass.cs" />
     <Compile Include="Models\FeedItemClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\FeedAggregatorClass.cs" />
     <Compile Include="Services\MessageBoxServiceClass.cs" />
     <Compile Include="Services\SubscriptionsClass.cs" />
+    <Compile Include="ViewModels\ItemsViewModelClass.cs" />
     <Compile Include="ViewModels\SubscriptionsViewModelClass.cs" />
   </ItemGroup>
   <ItemGroup>

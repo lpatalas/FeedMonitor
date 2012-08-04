@@ -10,11 +10,13 @@ using FeedMonitor.Services;
 
 namespace FeedMonitor.ViewModels
 {
-	public class SubscriptionsViewModel : PropertyChangedBase, ISubscriptionsViewModel
+	public class SubscriptionsViewModel : PropertyChangedBase, IHaveDisplayName, ISubscriptionsViewModel
 	{
 		private readonly IFeedFactory feedFactory;
 		private readonly IMessageBoxService messageBoxService;
 		private readonly ISubscriptions subscriptions;
+
+		public string DisplayName { get; set; }
 
 		public IEnumerable<Feed> Feeds
 		{
@@ -30,6 +32,7 @@ namespace FeedMonitor.ViewModels
 			Contract.Requires(messageBoxService != null);
 			Contract.Requires(subscriptions != null);
 
+			this.DisplayName = "feeds";
 			this.feedFactory = feedFactory;
 			this.messageBoxService = messageBoxService;
 			this.subscriptions = subscriptions;

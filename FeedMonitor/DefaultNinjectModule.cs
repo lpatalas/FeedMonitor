@@ -21,8 +21,8 @@ namespace FeedMonitor
 
 		private void BindExternalServices()
 		{
-			Bind<IWindowManager>().To<WindowManager>();
-			Bind<IEventAggregator>().To<EventAggregator>();
+			Bind<IWindowManager>().To<WindowManager>().InSingletonScope();
+			Bind<IEventAggregator>().To<EventAggregator>().InSingletonScope();
 		}
 
 		private void BindServices()

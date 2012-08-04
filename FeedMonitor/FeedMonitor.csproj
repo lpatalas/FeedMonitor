@@ -72,11 +72,8 @@
     </ApplicationDefinition>
     <Compile Include="Controls\PlaceholderTextBox.cs" />
     <Compile Include="DefaultNinjectModule.cs" />
-    <Compile Include="IObservableEnumerable.cs" />
-    <Compile Include="Models\AggregateCollectionView.cs" />
     <Compile Include="Models\Feed.cs" />
     <Compile Include="Models\FeedItem.cs" />
-    <Compile Include="Services\FeedAggregator.cs" />
     <Compile Include="Services\FeedDownloader.cs" />
     <Compile Include="Services\FeedFactory.cs" />
     <Compile Include="Services\IFeedDownloader.cs" />
@@ -89,6 +86,7 @@
     <Compile Include="ViewModels\Designer\DesignerMessageBoxViewModel.cs" />
     <Compile Include="ViewModels\Designer\DesignerSubscriptionsViewModel.cs" />
     <Compile Include="ViewModels\ISubscriptionsViewModel.cs" />
+    <Compile Include="ViewModels\ItemsViewModel.cs" />
     <Compile Include="ViewModels\MessageBoxButtonMapping.cs" />
     <Compile Include="ViewModels\MessageBoxViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />

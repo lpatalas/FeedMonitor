@@ -14,7 +14,6 @@ namespace FeedMonitor.ViewModels
 		public ShellViewModel(ISubscriptionsViewModel subscriptionsViewModel)
 		{
 			Contract.Requires(subscriptionsViewModel != null);
-
 			this.subscriptionsViewModel = subscriptionsViewModel;
 
 			ActivateItem(this.subscriptionsViewModel);
