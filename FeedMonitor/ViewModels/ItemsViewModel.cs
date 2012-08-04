@@ -13,7 +13,7 @@ using FeedMonitor.Services;
 
 namespace FeedMonitor.ViewModels
 {
-	public class ItemsViewModel : IHaveDisplayName
+	public class ItemsViewModel : IItemsViewModel
 	{
 		private readonly CompositeCollection aggregatedFeedItems = new CompositeCollection();
 		private readonly ICollectionView feedItemsView;

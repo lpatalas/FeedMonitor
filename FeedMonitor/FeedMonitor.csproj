@@ -83,10 +83,12 @@
     <Compile Include="Services\IMessageBoxService.cs" />
     <Compile Include="Services\MessageBoxService.cs" />
     <Compile Include="Services\Subscriptions.cs" />
+    <Compile Include="ViewModels\Designer\DesignerItemsViewModel.cs" />
     <Compile Include="ViewModels\Designer\DesignerMessageBoxViewModel.cs" />
     <Compile Include="ViewModels\Designer\DesignerShellViewModel.cs" />
     <Compile Include="ViewModels\Designer\DesignerSubscriptionsViewModel.cs" />
     <Compile Include="ViewModels\Designer\EmptyNamedViewModel.cs" />
+    <Compile Include="ViewModels\IItemsViewModel.cs" />
     <Compile Include="ViewModels\IShellViewModel.cs" />
     <Compile Include="ViewModels\ISubscriptionsViewModel.cs" />
     <Compile Include="ViewModels\ItemsViewModel.cs" />
@@ -99,12 +101,19 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="ViewModels\SubscriptionsViewModel.cs" />
+    <Compile Include="Views\ItemsView.xaml.cs">
+      <DependentUpon>ItemsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MessageBoxView.xaml.cs">
       <DependentUpon>MessageBoxView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SubscriptionsView.xaml.cs">
       <DependentUpon>SubscriptionsView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ItemsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MessageBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
