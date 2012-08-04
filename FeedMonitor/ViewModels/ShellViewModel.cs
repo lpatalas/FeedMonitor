@@ -7,7 +7,7 @@ using FeedMonitor.Services;
 
 namespace FeedMonitor.ViewModels
 {
-	public class ShellViewModel : Conductor<object>.Collection.OneActive
+	public class ShellViewModel : Conductor<object>.Collection.OneActive, IShellViewModel
 	{
 		private readonly ISubscriptionsViewModel subscriptionsViewModel;
 
