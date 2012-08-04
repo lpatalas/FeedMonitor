@@ -34,7 +34,8 @@ namespace FeedMonitor.Services
 			if (feeds.Any(feed => feed.Url.Equals(url, StringComparison.Ordinal)))
 				throw new InvalidOperationException("URL \"" + url + "\" was already added to the list of feeds.");
 
-			feeds.Add(feedFactory.Create(url));
+			var newFeed = feedFactory.Create(url);
+			feeds.Add(newFeed);
 		}
 
 		public void Remove(Feed feed)

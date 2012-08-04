@@ -9,14 +9,28 @@ namespace FeedMonitor.ViewModels
 {
 	public class ShellViewModel : Conductor<object>.Collection.OneActive, IShellViewModel
 	{
-		private readonly ISubscriptionsViewModel subscriptionsViewModel;
-
-		public ShellViewModel(ISubscriptionsViewModel subscriptionsViewModel)
+		public object SelectedScreen
 		{
-			Contract.Requires(subscriptionsViewModel != null);
-			this.subscriptionsViewModel = subscriptionsViewModel;
+			get { return ActiveItem; }
+			set { ActivateItem(value); }
+		}
 
-			ActivateItem(this.subscriptionsViewModel);
+		public ShellViewModel(
+			IItemsViewModel itemsViewModel,
+			ISubscriptionsViewModel subscriptionsViewModel)
+		{
+			Contract.Requires(itemsViewModel != null);
+			Contract.Requires(subscriptionsViewModel != null);
+
+			Items.Add(itemsViewModel);
+			Items.Add(subscriptionsViewModel);
+
+			ActivateItem(itemsViewModel);
+		}
+
+		public override void ActivateItem(object item)
+		{
+			base.ActivateItem(item);
 		}
 	}
 }

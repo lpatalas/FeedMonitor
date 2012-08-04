@@ -9,5 +9,6 @@ namespace FeedMonitor.ViewModels
 {
 	public interface IShellViewModel : IConductActiveItem, IHaveActiveItem
 	{
+		object SelectedScreen { get; set; }
 	}
 }

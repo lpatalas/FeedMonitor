@@ -9,6 +9,12 @@ namespace FeedMonitor.ViewModels.Designer
 {
 	public class DesignerShellViewModel : Conductor<object>.Collection.OneActive, IShellViewModel
 	{
+		public object SelectedScreen
+		{
+			get { return ActiveItem; }
+			set { ActivateItem(value); }
+		}
+
 		public DesignerShellViewModel()
 		{
 			Items.Add(new EmptyNamedViewModel("items"));
