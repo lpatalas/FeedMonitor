@@ -16,7 +16,7 @@
 					<Border Padding="6">
 						<StackPanel>
 							<TextBlock FontSize="20" Foreground="White" Text="{Binding Title}" />
-							<TextBlock FontSize="10" Foreground="#888" Text="{Binding PublishDate}" />
+							<TextBlock FontSize="10" Foreground="#888" Text="{Binding FeedTitle}" />
 						</StackPanel>
 					</Border>
 				</DataTemplate>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.ServiceModel.Syndication;
 using System.Text;
 using System.Threading.Tasks;
 using FeedMonitor.Models;
@@ -78,6 +79,24 @@ namespace FeedMonitor.UnitTests.Services
 
 				// Assert
 				subscriptions.Feeds.Should().Contain(feed => feed.Url.Equals(testUrl, StringComparison.Ordinal));
+			}
+
+			[Fact]
+			public void Should_download_feed_contents()
+			{
+				// Arrange
+				var wasGetFeedCalled = false;
+				feedDownloader.GetFeed = url =>
+				{
+					wasGetFeedCalled = true;
+					return new SyndicationFeed("Title", "Description", null);
+				};
+
+				// Act
+				subscriptions.Add(testUrl);
+
+				// Assert
+				wasGetFeedCalled.Should().BeTrue();
 			}
 
 			[Fact]

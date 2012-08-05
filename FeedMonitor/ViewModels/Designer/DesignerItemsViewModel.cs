@@ -18,10 +18,10 @@ namespace FeedMonitor.ViewModels.Designer
 		{
 			var items = new[]
 			{
-				new FeedItem("1", DateTime.Now.AddDays(-20), "Lorem ipsum"),
-				new FeedItem("2", DateTime.Now.AddDays(-1), "Dolor sit amet"),
-				new FeedItem("3", DateTime.Now.AddDays(-3), "Sed vel facilisis magna"),
-				new FeedItem("4", DateTime.Now.AddHours(-23), "Suspendisse nec aliquet neque")
+				new FeedItem("Lorem ipsum dolor sit amet", "1", DateTime.Now.AddDays(-20), "Lorem ipsum"),
+				new FeedItem("Lorem ipsum dolor sit amet", "2", DateTime.Now.AddDays(-1), "Dolor sit amet"),
+				new FeedItem("Lorem ipsum dolor sit amet", "3", DateTime.Now.AddDays(-3), "Sed vel facilisis magna"),
+				new FeedItem("Lorem ipsum dolor sit amet", "4", DateTime.Now.AddHours(-23), "Suspendisse nec aliquet neque")
 			};
 
 			FeedItems = CollectionViewSource.GetDefaultView(items);

@@ -5,6 +5,7 @@ using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Text;
 using System.Threading.Tasks;
+using Caliburn.Micro;
 using FeedMonitor.Services;
 
 namespace FeedMonitor.Models
@@ -12,10 +13,10 @@ namespace FeedMonitor.Models
 	public class Feed
 	{
 		private readonly IFeedDownloader feedDownloader;
-		private readonly IList<FeedItem> items = new List<FeedItem>();
+		private readonly IObservableCollection<FeedItem> items = new BindableCollection<FeedItem>();
 		private readonly string url;
 
-		public IList<FeedItem> Items
+		public IObservableCollection<FeedItem> Items
 		{
 			get { return items; }
 		}
@@ -45,18 +46,22 @@ namespace FeedMonitor.Models
 			var syndicationFeed = feedDownloader.GetFeed(url);
 			Title = syndicationFeed.Title.Text;
 
-			CopyItems(syndicationFeed.Items);
+			CopyItems(syndicationFeed);
 		}
 
-		private void CopyItems(IEnumerable<SyndicationItem> sourceItems)
+		private void CopyItems(SyndicationFeed sourceFeed)
 		{
+			items.IsNotifying = false;
 			items.Clear();
 
-			foreach (var sourceItem in sourceItems.OrderByDescending(item => item.PublishDate))
+			foreach (var sourceItem in sourceFeed.Items)
 			{
-				var newItem = FeedItem.FromSyndicationItem(sourceItem);
+				var newItem = FeedItem.FromSyndicationItem(sourceItem, sourceFeed);
 				items.Add(newItem);
 			}
+
+			items.IsNotifying = true;
+			items.Refresh();
 		}
 	}
 }

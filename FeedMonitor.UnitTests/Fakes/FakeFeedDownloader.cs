@@ -39,16 +39,19 @@ namespace FeedMonitor.UnitTests.Fakes
 
 		private SyndicationFeed GenerateFeed()
 		{
+			var feed = new SyndicationFeed();
+			feed.Title = new TextSyndicationContent(FeedTitle);
+
 			var items = from item in FeedItems
 						select new SyndicationItem
 						{
 							Id = item.Id,
 							PublishDate = item.PublishDate,
+							SourceFeed = feed,
 							Title = new TextSyndicationContent(item.Title)
 						};
 
-			var feed = new SyndicationFeed(items);
-			feed.Title = new TextSyndicationContent(FeedTitle);
+			feed.Items = items.ToList();
 
 			return feed;
 		}

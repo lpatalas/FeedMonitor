@@ -24,33 +24,6 @@ namespace FeedMonitor.UnitTests.Models
 				feed = new Feed(feedDownloader, feedUrl);
 			}
 		}
-
-		public class ItemsProperty : Test
-		{
-			[Fact]
-			public void Should_be_ordered_by_publish_date_in_descending_order()
-			{
-				// Arrange
-				var items = new[]
-				{
-					new FeedItem("1", DateTime.Now.AddDays(10), "First"),
-					new FeedItem("2", DateTime.Now, "Second"),
-					new FeedItem("3", DateTime.Now.AddDays(-1), "Third"),
-					new FeedItem("4", DateTime.Now.AddDays(1), "Fourth")
-				};
-
-				var orderedItems = items.OrderByDescending(item => item.PublishDate).ToList();
-
-				foreach (var item in items)
-					feedDownloader.FeedItems.Add(item);
-
-				// Act
-				feed.Update();
-
-				// Assert
-				feed.Items.Should().ContainInOrder(orderedItems);
-			}
-		}
 			 
 		public class UpdateMethod : Test
 		{

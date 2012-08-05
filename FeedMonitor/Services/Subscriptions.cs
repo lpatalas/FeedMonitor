@@ -36,6 +36,7 @@ namespace FeedMonitor.Services
 
 			var newFeed = feedFactory.Create(url);
 			feeds.Add(newFeed);
+			newFeed.Update();
 		}
 
 		public void Remove(Feed feed)
